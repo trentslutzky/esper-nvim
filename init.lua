@@ -1,4 +1,3 @@
--- ESPER NVIM
 require('modules.loader')
 
 local g = vim.g
