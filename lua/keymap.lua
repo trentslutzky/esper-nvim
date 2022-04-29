@@ -16,10 +16,10 @@ set("n","<leader>lg","<cmd>Telescope live_grep<cr>")
 set("n","<leader>b","<cmd>Telescope buffers<cr>")
 
 -- nav directions to NEUO
-set("n","<C-N>","<C-B>h")
-set("n","<C-E>","<C-B>j")
-set("n","<C-U>","<C-B>k")
-set("n","<C-O>","<C-B>l")
+set("n","<C-N>","<C-W>h")
+set("n","<C-E>","<C-W>j")
+set("n","<C-U>","<C-W>k")
+set("n","<C-O>","<C-W>l")
 
 -- switch buffers with control-t
 set("n","<C-T>","<cmd>bn<cr>")
