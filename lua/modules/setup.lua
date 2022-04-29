@@ -23,6 +23,7 @@ vim.diagnostic.config({
   severity_sort = false,
 })
 
+-- autocmd function to print diagnostics when hover
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
   line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
@@ -47,12 +48,13 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     end
     echostr = (echostr .. " echon '" .. mes .. "' |")
   end
-  --print(echostr)
-  vim.cmd(echostr)
+  print(echostr)
+  --vim.cmd(echostr)
 end
 
 vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
 
+-- setup feline
 require('modules.feline')
 
 require("bufferline").setup{options = {
@@ -84,6 +86,17 @@ require("colorizer").setup()
 
 require("twilight").setup{}
 
+vim.cmd('hi HlSearchNear guifg='..term(0)..' guibg='..term(4))
+vim.cmd('hi HlSearchLens guifg='..term(0)..' guibg='..term(5))
+vim.cmd('hi HlSearchLensNear guifg='..term(0)..' guibg='..term(4))
+
+require('hlslens').setup({
+  auto_enable = false,
+  calm_down = true,
+  nearest_only = true,
+  nearest_float_when = 'never'
+})
+
 require("scrollbar.handlers.search").setup()
 require("scrollbar").setup({
   handle = { color = term(0) },
@@ -98,3 +111,9 @@ require("scrollbar").setup({
 })
 
 require'nvim-lastplace'.setup{}
+
+require("presence"):setup({
+  auto_update = true,
+  main_image = "file",
+  buttons = false,
+})

@@ -29,6 +29,7 @@ end
 
 -- VI Mode
 local vi_mode_utils = require 'feline.providers.vi_mode'
+
 components.active[1][1] = {
     provider = function()
       -- make the mode lowercase
@@ -41,7 +42,7 @@ components.active[1][1] = {
             style = 'bold',
         }
     end,
-    left_sep = '█',
+    left_sep = '█',
     right_sep = '█',
     icon = '',
     opts = {
@@ -57,7 +58,6 @@ local filename = api.nvim_buf_get_name(0)
 -- base only
 filename = fn.fnamemodify(filename, ':t')
 
-local devicons = require('nvim-web-devicons')
 local icon_str, icon_color = require('nvim-web-devicons')
   .get_icon_color(api.nvim_buf_get_name(0))
 
@@ -76,16 +76,46 @@ components.active[1][2] = {
 
 
 -- RIGHT SIDE
+g.gitblame_display_virtual_text = 0
+-- git blame
+components.active[2][1] = {
+  provider = function()
+    local git_blame = require('gitblame')
+    local blame_text = git_blame.get_current_blame_text()
+    if git_blame.is_blame_text_available() then
+      if blame_text ~= "  Not Committed Yet" then
+        return blame_text
+      else
+        return ""
+      end
+    else
+      return ""
+    end
+  end,
+  hl = function()
+    return{
+      fg = term(15),
+    }
+  end,
+  right_sep=' ',
+}
+
 
 -- git status
-components.active[2][1] = {
+components.active[2][2] = {
   provider = 'git_branch',
-  left_sep = ' ',
-  right_sep = ' ',
+  left_sep = '█',
+  right_sep = '█',
+  hl = function()
+    return{
+      fg = term(0),
+      bg = term(5),
+    }
+  end,
 }
 
 -- position
-components.active[2][2] = {
+components.active[2][3] = {
   provider = 'position',
   hl = function()
     return{
@@ -97,7 +127,7 @@ components.active[2][2] = {
   right_sep = '█',
 }
 
-components.active[2][3] = {
+components.active[2][4] = {
   provider = 'line_percentage',
   hl = function()
     return{
@@ -106,7 +136,7 @@ components.active[2][3] = {
     }
   end,
   left_sep = '',
-  right_sep = '█',
+  right_sep = '█',
 }
 
 require("feline").setup({

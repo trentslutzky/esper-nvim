@@ -16,6 +16,8 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
   use 'onsails/lspkind.nvim'
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
@@ -84,5 +86,11 @@ return require('packer').startup(function()
   use 'max-0406/autoclose.nvim'
 
   use 'ethanholz/nvim-lastplace'
+
+  -- discord nvim presence :)
+  use 'andweeb/presence.nvim'
+
+  -- git blame
+  use 'f-person/git-blame.nvim'
 
 end)

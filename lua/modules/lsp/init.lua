@@ -9,6 +9,12 @@ end
 
 cmp.setup({
 
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol',
@@ -19,6 +25,7 @@ cmp.setup({
   sources = cmp.config.sources(
   {
     {name = 'nvim_lsp' },
+    {name = 'luasnip' },
   }, {
     { name = 'buffer' }
   }
@@ -30,10 +37,9 @@ cmp.setup({
       select = true,
     },
 
-    ['<right>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    },
+    ['<right>'] = cmp.mapping.confirm {select = true},
+
+    ['<esc>'] = cmp.mapping.abort(),
 
     ['<Tab>'] = function(fallback)
       if not cmp.select_next_item() then
@@ -55,25 +61,8 @@ cmp.setup({
       end
     end,
 
-    ['<down>'] = function(fallback)
-      if not cmp.select_next_item() then
-        if vim.bo.buftype ~= 'prompt' and has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end
-    end,
-
-    ['<up>'] = function(fallback)
-      if not cmp.select_prev_item() then
-        if vim.bo.buftype ~= 'prompt' and has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end
-    end
+    ['<up>'] = cmp.mapping.select_prev_item(),
+    ['<down>'] = cmp.mapping.select_next_item(),
   }
 
 })
