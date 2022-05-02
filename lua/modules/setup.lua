@@ -105,8 +105,6 @@ require("indent_blankline").setup {
 
 require("colorizer").setup()
 
-require("twilight").setup{}
-
 vim.cmd('hi HlSearchNear guifg='..term(0)..' guibg='..term(4))
 vim.cmd('hi HlSearchLens guifg='..term(0)..' guibg='..term(5))
 vim.cmd('hi HlSearchLensNear guifg='..term(0)..' guibg='..term(4))

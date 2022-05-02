@@ -22,7 +22,7 @@ return require('packer').startup(function()
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
 
-  --treesitter
+  -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'

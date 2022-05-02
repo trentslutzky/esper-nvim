@@ -7,6 +7,8 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
+vim.opt.completeopt = "menuone,noselect"
+
 cmp.setup({
 
   snippet = {
@@ -17,7 +19,7 @@ cmp.setup({
 
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol',
+      mode = 'symbol_text',
       maxWidth = 50
     })
   },
@@ -27,6 +29,7 @@ cmp.setup({
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'buffer' },
+      { name = 'path' },
     }
   ),
 
@@ -102,8 +105,13 @@ require('lspconfig')['sumneko_lua'].setup{
 
 require('lsp_signature').setup{
   bind = true,
+  hint_enable = false,
+  hint_prefix = "",
+  floating_window = true,
+  floating_window_above_cur_line = false,
+  padding = " ",
   handler_opts = {
-    border = "rounded"
+    border = "shadow"
   }
 }
 

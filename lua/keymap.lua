@@ -7,6 +7,9 @@ vim.g.mapleader = " "
 -- clear search highlight
 set("n","<leader>n",":nohlsearch<cr>")
 
+-- goto definition
+set("n","<leader>d","<cmd>lua vim.lsp.buf.definition()<cr>")
+
 -- Telescope bindings
 set("n","<leader>ff","<cmd>Telescope find_files<cr>")
 set("n","<leader>of","<cmd>Telescope oldfiles<cr>")
