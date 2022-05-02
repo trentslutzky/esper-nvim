@@ -84,7 +84,7 @@ components.active[2][1] = {
       if blame_text ~= "  Not Committed Yet" then
         return blame_text
       else
-        return ""
+        return " You - Unstaged"
       end
     else
       return ""

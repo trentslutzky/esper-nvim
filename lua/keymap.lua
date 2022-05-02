@@ -15,6 +15,7 @@ set("n","<leader>ff","<cmd>Telescope find_files<cr>")
 set("n","<leader>of","<cmd>Telescope oldfiles<cr>")
 set("n","<leader>gf","<cmd>Telescope git_files<cr>")
 set("n","<leader>gc","<cmd>Telescope git_commits<cr>")
+set("n","<leader>gs","<cmd>Telescope git_status theme=dropdown<cr>")
 set("n","<leader>lg","<cmd>Telescope live_grep<cr>")
 set("n","<leader>b","<cmd>Telescope buffers<cr>")
 
