@@ -50,22 +50,20 @@ components.active[1][1] = {
     }
 }
 
-
--- filename & devicon
-local filename = api.nvim_buf_get_name(0)
--- short relative
---filename = fn.pathshorten(fn.fnamemodify(filename, ':~:.'))
--- base only
-filename = fn.fnamemodify(filename, ':t')
-
-local icon_str, icon_color = require('nvim-web-devicons')
-  .get_icon_color(api.nvim_buf_get_name(0))
-
+-- buffer name and icon
 components.active[1][2] = {
   provider = function()
+    local icon_str, _ = require('nvim-web-devicons')
+      .get_icon_color(api.nvim_buf_get_name(0))
+
+    local filename = api.nvim_buf_get_name(0)
+    filename = fn.fnamemodify(filename, ':t')
+
     return icon_str .. " " .. filename
   end,
   hl = function()
+    local _, icon_color = require('nvim-web-devicons')
+      .get_icon_color(api.nvim_buf_get_name(0))
     return{
       fg = icon_color,
     }
@@ -101,7 +99,7 @@ components.active[2][1] = {
 }
 
 
--- git status
+-- git branch
 components.active[2][2] = {
   provider = 'git_branch',
   left_sep = '█',
@@ -109,7 +107,7 @@ components.active[2][2] = {
   hl = function()
     return{
       fg = term(0),
-      bg = term(5),
+      bg = term(4),
     }
   end,
 }

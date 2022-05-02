@@ -3,11 +3,11 @@ local cmd = vim.cmd
 cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
-  -- colorscheme
-  use 'joshdick/onedark.vim'
-
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+
+  -- colorscheme
+  use 'joshdick/onedark.vim'
 
   -- lsp
   use 'neovim/nvim-lspconfig'
@@ -50,41 +50,37 @@ return require('packer').startup(function()
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
-  -- clap
-  use 'liuchengxu/vim-clap'
 
   -- gitsigns
   use {
     'lewis6991/gitsigns.nvim'
   }
 
-  -- dahboard
+  -- dashboard
   use 'glepnir/dashboard-nvim'
 
   -- smooth scrolling
-  -- use "karb94/neoscroll.nvim"
   use 'declancm/cinnamon.nvim'
 
   -- nvim tree
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      'kyazdani42/nvim-web-devicons',
     }
   }
 
   -- fancy colors on hex and stuff in vim
   use 'norcalli/nvim-colorizer.lua'
 
-  -- dim irrelevant code
-  use 'folke/twilight.nvim'
-
   -- scrollbar with other features
   use 'kevinhwang91/nvim-hlslens'
   use 'petertriho/nvim-scrollbar'
 
+  -- autoclose
   use 'max-0406/autoclose.nvim'
 
+  -- reopen at the last place
   use 'ethanholz/nvim-lastplace'
 
   -- discord nvim presence :)

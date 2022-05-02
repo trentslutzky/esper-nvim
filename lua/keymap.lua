@@ -26,3 +26,6 @@ set("n","<C-T>","<cmd>bn<cr>")
 
 -- close buffers with control-t
 set("n","<C-W>","<cmd>bd<cr>")
+
+-- open close nvimtree
+set("n","<C-L>",":NvimTreeToggle<cr>")

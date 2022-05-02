@@ -9,6 +9,7 @@ require('nvim-autopairs').setup{}
 
 require('modules.lsp')
 
+vim.cmd('hi DiagnosticHint guifg='..term(4))
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -29,27 +30,36 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
   opts = opts or {['lnum'] = line_nr}
 
-  local line_diagnostics = vim.diagnostic.get(bufnr, opts, client_id)
-  if vim.tbl_isempty(line_diagnostics) then return end
+  local max_width = vim.api.nvim_win_get_width(0)
 
-  --local echostr = 'echohl Normal | echon " > " | echohl Error | '
+  local line_diagnostics = vim.diagnostic.get(bufnr, opts, client_id)
+
   local echostr = ''
+  local num_err = 0
   for _, diagnostic in ipairs(line_diagnostics) do
-    local sev = diagnostic.severity
-    local mes = diagnostic.message
-    if sev == 1 then
-      echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
-    elseif sev == 2 then
-      echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
-    elseif sev == 3 then
-      echostr = echostr .. 'echohl DiagnosticInfo | echon "  " |'
-    elseif sev == 4 then
-      echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
+    num_err = num_err + 1
+    if num_err < 3 then
+      local sev = diagnostic.severity
+      local mes = diagnostic.message
+
+      if sev == 1 then
+        echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
+      elseif sev == 2 then
+        echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
+      elseif sev == 3 then
+        echostr = echostr .. 'echohl DiagnosticInfo | echon "  " |'
+      elseif sev == 4 then
+        echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
+      end
+      if string.len(echostr) < max_width then
+        echostr = (echostr .. " echon '" .. mes .. "' |")
+      end
     end
-    echostr = (echostr .. " echon '" .. mes .. "' |")
   end
-  print(echostr)
-  --vim.cmd(echostr)
+  echostr = (" echohl Normmal | echon '" .. num_err .. " err: ' |" .. echostr)
+  if num_err > 0 then
+    vim.cmd(echostr)
+  end
 end
 
 vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
@@ -57,16 +67,27 @@ vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
 -- setup feline
 require('modules.feline')
 
-require("bufferline").setup{options = {
-  diagnostics = false,
-  show_close_icon = false,
-  offsets = {{
-    filetype = "NvimTree",
-    text = ""
-  }},
-}}
--- colors
-vim.cmd('hi BufferLineFill guibg=#202020')
+local hi_selected = {
+  guifg = term(2),
+  guibg = term(0),
+}
+require("bufferline").setup{
+  options = {
+    diagnostics = false,
+    show_close_icon = false,
+    show_buffer_icons = false,
+    offsets = {{
+      filetype = "NvimTree",
+      text = ""
+    }},
+  },
+  highlights = {
+    buffer_selected = hi_selected,
+    close_button_selected = hi_selected,
+    modified_selected = hi_selected,
+    indicator_selected = {guibg=term(0)},
+  },
+}
 
 require('cinnamon').setup{
   extra_keymaps = true,
@@ -104,8 +125,8 @@ require("scrollbar").setup({
     Search = { color = term(2) },
      Error = { color = term(1) },
       Warn = { color = term(3) },
-      Info = { color = term(5) },
-      Hint = { color = term(5) },
+      Info = { color = term(4) },
+      Hint = { color = term(4) },
       Misc = { color = term(15) },
   },
 })
@@ -117,3 +138,5 @@ require("presence"):setup({
   main_image = "file",
   buttons = false,
 })
+
+require("modules.dashboard")

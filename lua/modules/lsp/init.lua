@@ -23,12 +23,11 @@ cmp.setup({
   },
 
   sources = cmp.config.sources(
-  {
-    {name = 'nvim_lsp' },
-    {name = 'luasnip' },
-  }, {
-    { name = 'buffer' }
-  }
+    {
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' },
+      { name = 'buffer' },
+    }
   ),
 
   mapping = {
@@ -37,9 +36,20 @@ cmp.setup({
       select = true,
     },
 
-    ['<right>'] = cmp.mapping.confirm {select = true},
+    ['<right>'] = function(fallback)
+      if vim.bo.buftype == 'prompt' then
+        cmp.mapping.confirm {select = true}
+      else
+        fallback()
+      end
+    end,
 
-    ['<esc>'] = cmp.mapping.abort(),
+    ['<esc>'] = function (fallback)
+      cmp.mapping.abort()
+      cmp.mapping.abort()
+      cmp.mapping.abort()
+      fallback()
+    end,
 
     ['<Tab>'] = function(fallback)
       if not cmp.select_next_item() then
@@ -61,7 +71,14 @@ cmp.setup({
       end
     end,
 
-    ['<up>'] = cmp.mapping.select_prev_item(),
+    ['<up>'] = function(fallback)
+      if vim.bo.buftype == 'prompt' then
+        cmp.mapping.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+
     ['<down>'] = cmp.mapping.select_next_item(),
   }
 

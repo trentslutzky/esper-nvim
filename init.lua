@@ -1,5 +1,6 @@
 -- ESPER NVIM
 require('modules.loader')
+local term = require('util').term
 
 local g = vim.g
 local set = vim.opt
@@ -20,16 +21,12 @@ set.relativenumber = true
 cmd('syntax on')
 set.termguicolors = true
 cmd('colorscheme onedark')
-cmd('hi Normal guibg=#151515')
-cmd('hi Cursorline guibg=#171717 cterm=bold')
+cmd('hi Normal guibg=none')
+cmd('hi Cursorline guibg=none cterm=bold')
 
 set.completeopt = 'menuone,noselect'
 set.updatetime = 100
 wo.signcolumn = 'yes'
-
--- some stuff for dashboard
-g.dashboard_default_executive ='telescope'
-cmd('autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2')
 
 -- prevent code wrapping
 set.wrap = false
