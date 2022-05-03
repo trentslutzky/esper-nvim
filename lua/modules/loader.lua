@@ -22,6 +22,12 @@ return require('packer').startup(function()
   use 'ray-x/lsp_signature.nvim'
   use 'windwp/nvim-autopairs'
 
+
+  -- jsx highlighting
+  use 'maxmellon/vim-jsx-pretty'
+  -- js highlighting
+  use 'yuezk/vim-js'
+
   -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
