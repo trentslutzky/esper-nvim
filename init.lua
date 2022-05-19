@@ -12,7 +12,6 @@ set.tabstop = 2
 set.shiftwidth = 2
 set.softtabstop = 2
 set.expandtab = true
-
 -- show number and relnumber
 set.number = true
 set.relativenumber = true

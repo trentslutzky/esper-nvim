@@ -73,15 +73,7 @@ cmp.setup({
         end
       end
     end,
-
-    ['<up>'] = function(fallback)
-      if vim.bo.buftype == 'prompt' then
-        cmp.mapping.select_prev_item()
-      else
-        fallback()
-      end
-    end,
-
+    ['<up>'] = cmp.mapping.select_prev_item(),
     ['<down>'] = cmp.mapping.select_next_item(),
   }
 
@@ -91,8 +83,6 @@ cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex 
 
 -- python
 require('lspconfig')['pyright'].setup{}
--- eslin
-require('lspconfig')['eslint'].setup{}
 -- lua
 require('lspconfig')['sumneko_lua'].setup{
   settings = { Lua = {

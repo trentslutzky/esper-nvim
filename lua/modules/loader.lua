@@ -8,6 +8,10 @@ return require('packer').startup(function()
 
   -- colorscheme
   use 'joshdick/onedark.vim'
+  use 'rakr/vim-one'
+
+  -- comments
+  use 'terrortylor/nvim-comment'
 
   -- lsp
   use 'neovim/nvim-lspconfig'
@@ -57,10 +61,13 @@ return require('packer').startup(function()
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  -- git stuff
   -- gitsigns
   use {
     'lewis6991/gitsigns.nvim'
   }
+  -- git blame
+  use 'f-person/git-blame.nvim'
 
   -- dashboard
   use 'glepnir/dashboard-nvim'
@@ -91,8 +98,5 @@ return require('packer').startup(function()
 
   -- discord nvim presence :)
   use 'andweeb/presence.nvim'
-
-  -- git blame
-  use 'f-person/git-blame.nvim'
 
 end)

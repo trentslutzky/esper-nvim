@@ -36,29 +36,31 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 
   local echostr = ''
   local num_err = 0
+  local mes = ''
   for _, diagnostic in ipairs(line_diagnostics) do
     num_err = num_err + 1
-    if num_err < 3 then
-      local sev = diagnostic.severity
-      local mes = diagnostic.message
-
-      if sev == 1 then
-        echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
-      elseif sev == 2 then
-        echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
-      elseif sev == 3 then
-        echostr = echostr .. 'echohl DiagnosticInfo | echon "  " |'
-      elseif sev == 4 then
-        echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
-      end
-      if string.len(echostr) < max_width then
-        echostr = (echostr .. " echon '" .. mes .. "' |")
-      end
+    local sev = diagnostic.severity
+    mes = diagnostic.message
+    if sev == 1 then
+      echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
+    elseif sev == 2 then
+    echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
+    elseif sev == 3 then
+      echostr = echostr .. 'echohl DiagnosticInfo | echon "  " |'
+    elseif sev == 4 then
+      echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
     end
+    --mes = mes:gsub('"',""):gsub("'",""):gsub("`","")
+    --if string.len(echostr) < max_width then
+    echostr = (echostr .. " echon '" .. mes .. "' |")
+    --end
   end
+
   echostr = (" echohl Normmal | echon '" .. num_err .. " err: ' |" .. echostr)
+
   if num_err > 0 then
-    vim.cmd(echostr)
+    print(mes)
+    --vim.cmd(echostr)
   end
 end
 
@@ -138,3 +140,5 @@ require("presence"):setup({
 })
 
 require("modules.dashboard")
+
+require('nvim_comment').setup()
