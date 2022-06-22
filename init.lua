@@ -7,6 +7,7 @@ local set = vim.opt
 local cmd = vim.cmd
 local wo = vim.wo
 
+set.mouse = 'a'
 set.cursorline = true
 set.tabstop = 2
 set.shiftwidth = 2
