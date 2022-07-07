@@ -20,9 +20,18 @@ set.relativenumber = true
 -- colorscheme stuff
 cmd('syntax on')
 set.termguicolors = true
-cmd('colorscheme onedark')
+
+-- switch colorscheme based on darkmode
+if os.getenv("DARKMODE") == "1" then
+  cmd('colorscheme onehalfdark')
+  set.background = 'dark'
+else
+  cmd('colorscheme onehalflight')
+  set.background = 'light'
+end
+
 cmd('hi Normal guibg=none')
-cmd('hi Cursorline guibg=none cterm=bold')
+--cmd('hi Cursorline guibg=none cterm=bold')
 
 set.completeopt = 'menuone,noselect'
 set.updatetime = 100

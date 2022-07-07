@@ -95,9 +95,13 @@ require('cinnamon').setup{
   extra_keymaps = true,
 }
 
-require("nvim-tree").setup {}
+require("nvim-tree").setup {
+  view = {
+    width = 40,
+  }
+}
 -- nvim tree colors
-vim.cmd('hi NvimTreeNormal guibg=#101010')
+-- vim.cmd('hi NvimTreeNormal guibg=#101010')
 
 require("indent_blankline").setup {
   show_first_indent_level = false,
@@ -142,3 +146,5 @@ require("presence"):setup({
 require("modules.dashboard")
 
 require('nvim_comment').setup()
+
+require('numbers').setup()

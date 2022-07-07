@@ -2,13 +2,19 @@ local cmd = vim.cmd
 
 cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
+return require('packer').startup({function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
   -- colorscheme
   use 'joshdick/onedark.vim'
   use 'rakr/vim-one'
+  use 'rktjmp/lush.nvim'
+  use 'mcchrish/zenbones.nvim'
+  use {
+    'sonph/onehalf',
+    rtp = '/vim'
+  }
 
   -- comments
   use 'terrortylor/nvim-comment'
@@ -99,4 +105,12 @@ return require('packer').startup(function()
   -- discord nvim presence :)
   use 'andweeb/presence.nvim'
 
-end)
+  -- toggle relative numbers
+  use 'nkakouros-original/numbers.nvim'
+
+end,
+config = {
+  display = {
+    open_fn = require('packer.util').float,
+  }
+}})

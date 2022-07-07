@@ -42,8 +42,10 @@ components.active[1][1] = {
             style = 'bold',
         }
     end,
-    left_sep = '█',
-    right_sep = '█',
+    --left_sep = '█',
+    --right_sep = '█',
+    left_sep = '█',
+    right_sep = '█',
     icon = '',
     opts = {
       padding = 'center',
@@ -102,8 +104,10 @@ components.active[2][1] = {
 -- git branch
 components.active[2][2] = {
   provider = 'git_branch',
-  left_sep = '█',
-  right_sep = '█',
+  --left_sep = '█',
+  --right_sep = '█',
+  left_sep = '█',
+  right_sep = '█ ',
   hl = function()
     return{
       fg = term(0),
@@ -121,7 +125,8 @@ components.active[2][3] = {
       bg = vi_mode_color(),
     }
   end,
-  left_sep = '█',
+  --left_sep = '█',
+  left_sep = '█',
   right_sep = '█',
 }
 
@@ -134,12 +139,18 @@ components.active[2][4] = {
     }
   end,
   left_sep = '',
-  right_sep = '█',
+  right_sep = '█',
+  --right_sep = '█',
+}
+
+local my_theme = {
+  bg = term(0)
 }
 
 require("feline").setup({
   components = components,
   disable = {
     filetypes = {}
-  }
+  },
+  theme = my_theme
 })
