@@ -19,6 +19,7 @@ set("n","<leader>gs","<cmd>Telescope git_status theme=dropdown<cr>")
 set("n","<leader>gS","<cmd>Telescope grep_string<cr>")
 set("n","<leader>lg","<cmd>Telescope live_grep<cr>")
 set("n","<leader>b","<cmd>Telescope buffers<cr>")
+set("n","<leader>k","<cmd>Telescope keymaps<cr>")
 
 -- nav directions to NEUO
 set("n","<C-N>","<C-W>h")

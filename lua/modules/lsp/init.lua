@@ -18,10 +18,18 @@ cmp.setup({
   },
 
   formatting = {
+    fields = { "abbr", "kind" },
     format = lspkind.cmp_format({
       mode = 'symbol_text',
       maxWidth = 50
     })
+  },
+
+  window = {
+    completion = {
+      col_offset = 0,
+      side_padding = 1
+    },
   },
 
   sources = cmp.config.sources(
@@ -29,6 +37,7 @@ cmp.setup({
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'buffer' },
+      { name = 'spell' },
       { name = 'path' },
     }
   ),
@@ -92,6 +101,8 @@ require('lspconfig')['sumneko_lua'].setup{
     },
   }},
 }
+-- golang
+require'lspconfig'.gopls.setup{}
 
 require('lsp_signature').setup{
   bind = true,

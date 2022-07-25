@@ -1,26 +1,39 @@
 local term = require('util').term
 
-require('gitsigns').setup {}
+require('gitsigns').setup {
+  numhl = false,
+}
+
 require('nvim-web-devicons').setup{default=true}
 
 require('telescope').setup{}
 
-require('nvim-autopairs').setup{}
+require('nvim-autopairs').setup({
+  disable_filetype = { "TelescopePrompt" , "vim" },
+})
 
 require('modules.lsp')
 
-vim.cmd('hi DiagnosticHint guifg='..term(4))
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.cmd('hi DiagnosticError guifg='..term(1))
+vim.cmd('hi DiagnosticWarn guifg='..term(3))
+vim.cmd('hi DiagnosticHint guifg='..term(4))
+vim.cmd('hi DiagnosticInfo guifg='..term(2))
+-- vim.cmd('hi DiagnosticUnderlineError gui=underline guifg='..term(1))
+-- vim.cmd('hi DiagnosticUnderlineWarn gui=underline guifg='..term(3))
+-- vim.cmd('hi DiagnosticUnderlineHint gui=underline guifg='..term(4))
+-- vim.cmd('hi DiagnosticUnderlineInfo gui=underline guifg='..term(2))
+
 vim.diagnostic.config({
   virtual_text = false,
   signs = true,
   underline = true,
-  update_in_insert = false,
+  update_in_insert = true,
   severity_sort = false,
 })
 
@@ -29,8 +42,6 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
   line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
   opts = opts or {['lnum'] = line_nr}
-
-  local max_width = vim.api.nvim_win_get_width(0)
 
   local line_diagnostics = vim.diagnostic.get(bufnr, opts, client_id)
 
@@ -70,9 +81,10 @@ vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
 require('modules.feline')
 
 local hi_selected = {
-  guifg = term(2),
-  guibg = term(0),
+  guifg = term(4),
+  guibg = "",
 }
+
 require("bufferline").setup{
   options = {
     diagnostics = false,
@@ -80,28 +92,38 @@ require("bufferline").setup{
     show_buffer_icons = false,
     offsets = {{
       filetype = "NvimTree",
-      text = ""
+      text = "File Browser"
     }},
   },
   highlights = {
     buffer_selected = hi_selected,
     close_button_selected = hi_selected,
     modified_selected = hi_selected,
-    indicator_selected = {guibg=term(0)},
+    indicator_selected = { guibg='none' },
   },
 }
 
 require('cinnamon').setup{
   extra_keymaps = true,
+  horizontal_scroll = false,
+  centered = true,
+  default_delay = 5,
 }
 
 require("nvim-tree").setup {
   view = {
     width = 40,
+  },
+  filters = {
+    custom = {
+      "^.git$",
+      "^.github$",
+      "^.git-crypt$",
+      "^.mypy_cache$",
+      "^__pycache__$"
+    }
   }
 }
--- nvim tree colors
--- vim.cmd('hi NvimTreeNormal guibg=#101010')
 
 require("indent_blankline").setup {
   show_first_indent_level = false,
@@ -124,7 +146,7 @@ require('hlslens').setup({
 
 require("scrollbar.handlers.search").setup()
 require("scrollbar").setup({
-  handle = { color = term(0) },
+  handle = { color = "#555577" },
   marks = {
     Search = { color = term(2) },
      Error = { color = term(1) },
@@ -137,14 +159,18 @@ require("scrollbar").setup({
 
 require'nvim-lastplace'.setup{}
 
-require("presence"):setup({
-  auto_update = true,
-  main_image = "file",
-  buttons = false,
-})
+--require("presence"):setup({
+--  auto_update = true,
+--  main_image = "file",
+--  buttons = false,
+--})
 
 require("modules.dashboard")
 
 require('nvim_comment').setup()
 
-require('numbers').setup()
+require('numbers').setup({
+  excluded_filetypes = {"help","dashboard","nvimtre"},
+})
+
+require('gitlinker').setup()

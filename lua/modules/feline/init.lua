@@ -68,10 +68,11 @@ components.active[1][2] = {
       .get_icon_color(api.nvim_buf_get_name(0))
     return{
       fg = icon_color,
+      bg = "none"
     }
   end,
-  left_sep = '█',
-  right_sep = '█',
+  left_sep = '  ',
+  right_sep = '  ',
 }
 
 
@@ -94,7 +95,7 @@ components.active[2][1] = {
   end,
   hl = function()
     return{
-      fg = term(15),
+      fg = "#555577",
     }
   end,
   right_sep=' ',
@@ -144,7 +145,7 @@ components.active[2][4] = {
 }
 
 local my_theme = {
-  bg = term(0)
+  bg = "none"
 }
 
 require("feline").setup({

@@ -11,10 +11,8 @@ return require('packer').startup({function()
   use 'rakr/vim-one'
   use 'rktjmp/lush.nvim'
   use 'mcchrish/zenbones.nvim'
-  use {
-    'sonph/onehalf',
-    rtp = '/vim'
-  }
+  use 'trentslutzky/onehalf'
+  use({ "catppuccin/nvim", as = "catppuccin" })
 
   -- comments
   use 'terrortylor/nvim-comment'
@@ -33,10 +31,13 @@ return require('packer').startup({function()
   use 'windwp/nvim-autopairs'
 
 
+  -- language-sepcific stuff
   -- jsx highlighting
   use 'maxmellon/vim-jsx-pretty'
   -- js highlighting
   use 'yuezk/vim-js'
+  -- fish script
+  use 'dag/vim-fish'
 
   -- treesitter
   use {
@@ -102,11 +103,14 @@ return require('packer').startup({function()
   -- reopen at the last place
   use 'ethanholz/nvim-lastplace'
 
-  -- discord nvim presence :)
-  use 'andweeb/presence.nvim'
-
   -- toggle relative numbers
   use 'nkakouros-original/numbers.nvim'
+
+  -- git line link
+  use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+  }
 
 end,
 config = {
