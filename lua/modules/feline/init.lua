@@ -21,6 +21,8 @@ local vi_mode_colors = {
   i = term(4),
 }
 
+local background_color = "#c8c8c8"
+
 local function vi_mode_color()
   return vi_mode_colors[vim.fn.mode()] or term(7)
 end
@@ -43,9 +45,9 @@ components.active[1][1] = {
         }
     end,
     --left_sep = '█',
-    --right_sep = '█',
+    right_sep = '█',
     left_sep = '█',
-    right_sep = '█',
+    -- right_sep = '█',
     icon = '',
     opts = {
       padding = 'center',
@@ -68,7 +70,7 @@ components.active[1][2] = {
       .get_icon_color(api.nvim_buf_get_name(0))
     return{
       fg = icon_color,
-      bg = "none"
+      -- bg = background_color
     }
   end,
   left_sep = '  ',
@@ -105,10 +107,10 @@ components.active[2][1] = {
 -- git branch
 components.active[2][2] = {
   provider = 'git_branch',
-  --left_sep = '█',
-  --right_sep = '█',
-  left_sep = '█',
-  right_sep = '█ ',
+  left_sep = '█',
+  right_sep = '█',
+  -- left_sep = '█',
+  --right_sep = '█ ',
   hl = function()
     return{
       fg = term(0),
@@ -126,8 +128,8 @@ components.active[2][3] = {
       bg = vi_mode_color(),
     }
   end,
-  --left_sep = '█',
-  left_sep = '█',
+  left_sep = '█',
+  --left_sep = '█',
   right_sep = '█',
 }
 
@@ -144,14 +146,14 @@ components.active[2][4] = {
   --right_sep = '█',
 }
 
-local my_theme = {
-  bg = "none"
-}
+-- local my_theme = {
+--   bg = background_color
+-- }
 
 require("feline").setup({
   components = components,
   disable = {
     filetypes = {}
   },
-  theme = my_theme
+  theme = my_theme,
 })

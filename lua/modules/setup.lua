@@ -6,8 +6,6 @@ require('gitsigns').setup {
 
 require('nvim-web-devicons').setup{default=true}
 
-require('telescope').setup{}
-
 require('nvim-autopairs').setup({
   disable_filetype = { "TelescopePrompt" , "vim" },
 })
@@ -19,15 +17,6 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
-vim.cmd('hi DiagnosticError guifg='..term(1))
-vim.cmd('hi DiagnosticWarn guifg='..term(3))
-vim.cmd('hi DiagnosticHint guifg='..term(4))
-vim.cmd('hi DiagnosticInfo guifg='..term(2))
--- vim.cmd('hi DiagnosticUnderlineError gui=underline guifg='..term(1))
--- vim.cmd('hi DiagnosticUnderlineWarn gui=underline guifg='..term(3))
--- vim.cmd('hi DiagnosticUnderlineHint gui=underline guifg='..term(4))
--- vim.cmd('hi DiagnosticUnderlineInfo gui=underline guifg='..term(2))
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -80,26 +69,27 @@ vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
 -- setup feline
 require('modules.feline')
 
-local hi_selected = {
-  guifg = term(4),
-  guibg = "",
-}
+-- setup telescope
+require('modules.telescope')
 
 require("bufferline").setup{
   options = {
     diagnostics = false,
     show_close_icon = false,
     show_buffer_icons = false,
+    separator_style = "slant",
     offsets = {{
       filetype = "NvimTree",
       text = "File Browser"
     }},
-  },
-  highlights = {
-    buffer_selected = hi_selected,
-    close_button_selected = hi_selected,
-    modified_selected = hi_selected,
-    indicator_selected = { guibg='none' },
+    custom_areas = {
+      right = function()
+        local time_text = os.date("%H:%M")
+        return {{
+          text = "" .. time_text .. "  ",
+        }}
+      end
+    }
   },
 }
 
@@ -131,12 +121,6 @@ require("indent_blankline").setup {
   filetype_exclude = {"help","dashboard"},
 }
 
-require("colorizer").setup()
-
-vim.cmd('hi HlSearchNear guifg='..term(0)..' guibg='..term(4))
-vim.cmd('hi HlSearchLens guifg='..term(0)..' guibg='..term(5))
-vim.cmd('hi HlSearchLensNear guifg='..term(0)..' guibg='..term(4))
-
 require('hlslens').setup({
   auto_enable = false,
   calm_down = true,
@@ -146,7 +130,6 @@ require('hlslens').setup({
 
 require("scrollbar.handlers.search").setup()
 require("scrollbar").setup({
-  handle = { color = "#555577" },
   marks = {
     Search = { color = term(2) },
      Error = { color = term(1) },
@@ -159,18 +142,23 @@ require("scrollbar").setup({
 
 require'nvim-lastplace'.setup{}
 
---require("presence"):setup({
---  auto_update = true,
---  main_image = "file",
---  buttons = false,
---})
-
 require("modules.dashboard")
 
 require('nvim_comment').setup()
 
 require('numbers').setup({
-  excluded_filetypes = {"help","dashboard","nvimtre"},
+  excluded_filetypes = {"help","dashboard","nvimtre","octo"},
 })
 
 require('gitlinker').setup()
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.markdown.filetype_to_parsername = "octo"
+
+require("octo").setup({
+  timeline_marker = "";
+  timeline_indent = "4";
+})
+
+require("yanky").setup({})
+
