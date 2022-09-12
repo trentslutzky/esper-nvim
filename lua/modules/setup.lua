@@ -1,9 +1,7 @@
 local term = require('util').term
 
-require('gitsigns').setup {
-  numhl = false,
-}
-
+require('gitsigns').setup({})
+--
 require('nvim-web-devicons').setup{default=true}
 
 require('nvim-autopairs').setup({
@@ -81,15 +79,7 @@ require("bufferline").setup{
     offsets = {{
       filetype = "NvimTree",
       text = "File Browser"
-    }},
-    custom_areas = {
-      right = function()
-        local time_text = os.date("%H:%M")
-        return {{
-          text = "" .. time_text .. "  ",
-        }}
-      end
-    }
+    }}
   },
 }
 

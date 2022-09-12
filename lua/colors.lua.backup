@@ -1,3 +1,4 @@
+local term = require('util').term
 
 local set = vim.opt
 local cmd = vim.cmd
@@ -25,31 +26,20 @@ local function gen_highlghts(highlights)
 end
 
 local bg_0 = "#151515"
-local bg_1 = "#111111"
-local bg_2 = "#222222"
-local bg_3 = "#333333"
-
-local foreground = "#abb2bf"
-local foreground1 = "#888e99"
-local foreground2 = "#6c717a"
-
-local red = "#e06c75"
-local green = "#98c379"
-local yellow = "#e5c07b"
-local blue = "#61afef"
-local magenta = "#c678dd"
-local cyan = "#56b6c2"
+local bg_1 = "#222222"
+local bg_2 = "#333333"
+local bg_3 = "#444444"
+local bg_4 = "#666666"
 
 local highlghts = {
 
   Normal = {
-    fg =foreground,
     bg = bg_0
   },
 
   NormalFloat = {
     bg = bg_1,
-    fg = blue,
+    fg = term(4),
   },
 
   -- bufferline
@@ -59,33 +49,33 @@ local highlghts = {
   },
 
   BufferLineBackground = {
-    fg = bg_3,
+    fg = bg_4,
     bg = bg_1,
   },
 
   BufferLineCloseButton = {
-    fg = bg_3,
+    fg = bg_4,
     bg = bg_1,
   },
 
   BufferLineCloseButtonSelected = {
-    fg = green,
+    fg = term(2),
     bg = bg_2,
   },
 
   BufferLineBufferSelected = {
-    fg = green,
+    fg = term(2),
     bg = bg_2,
     gui = "bold",
   },
 
   BufferLineModified = {
-    fg = green,
+    fg = term(2),
     bg = bg_1,
   },
 
   BufferLineModifiedSelected = {
-    fg = green,
+    fg = term(2),
     bg = bg_2,
   },
 
@@ -120,13 +110,13 @@ local highlghts = {
   },
 
   TelescopePreviewTitle = {
-    fg = green,
+    fg = term(2),
     bg = bg_2,
     gui = "bold",
   },
 
   TelescopeResultsTitle = {
-    fg = yellow,
+    fg = term(3),
     bg = bg_1,
     gui = "bold",
   },
@@ -147,58 +137,48 @@ local highlghts = {
 
   TelescopePromptTitle = {
     bg = bg_3,
-    fg = yellow,
+    fg = term(3),
   },
 
   TelescopePromptCounter = {
     bg = bg_3,
-    fg = yellow,
+    fg = term(3),
   },
 
   -- lsp diagnostics
 
-  DiagnosticError = { fg = red },
-  DiagnosticWarn = { fg = yellow },
-  DiagnosticHint = { fg = yellow },
-  DiagnosticInfo = { fg = yellow },
+  DiagnosticError = { fg = term(1) },
+  DiagnosticWarn = { fg = term(1) },
+  DiagnosticHint = { fg = term(1) },
+  DiagnosticInfo = { fg = term(1) },
 
   -- search highlighting
-  --
-  Search = {
-    fg = bg_0,
-    bg = yellow,
-  },
 
   HlSearchNear = {
-    fg = yellow,
-    bg = bg_0,
-  },
-
-  HlSearchFloat = {
-    fg = magenta,
-    bg = bg_0,
+    fg = term(0),
+    bg = term(4),
   },
 
   HlSearchLens = {
-    fg = magenta,
-    bg = bg_0,
+    fg = term(0),
+    bg = term(5),
   },
 
   HlSearchLensNear = {
-    fg = green,
-    bg = bg_2,
+    fg = term(0),
+    bg = term(4),
   },
 
   -- cursorline
 
   Cursorline = {
     gui = "bold",
-    bg = bg_2,
+    bg = bg_1,
   },
 
   CursorlineNr = {
     gui = "bold",
-    fg = foreground,
+    fg = term(7),
   },
 
   -- line numbers
@@ -242,59 +222,51 @@ local highlghts = {
 
   OctoIssueId = {
     bg = bg_1,
-    fg = yellow,
+    fg = term(3),
   },
 
   OctoStateOpenFloat = {
     bg = bg_1,
-    fg = green,
+    fg = term(2),
   },
 
   OctoStateClosedFloat = {
     bg = bg_1,
-    fg = red,
+    fg = term(1),
   },
 
   OctoStateMergedFloat = {
     bg = bg_1,
-    fg = cyan,
+    fg = term(4),
   },
 
   OctoUser = {
     bg = bg_2,
-    fg = cyan,
+    fg = term(4),
   },
 
   OctoUserViewer = {
     bg = bg_2,
-    fg = green,
-  },
-
-  -- indentline
-
-  IndentBlankLineChar = {
-    fg = bg_2
-  },
-
-  -- comments
-
-  Comment = {
-    fg = foreground2,
-  },
-
-  Operator = {
-    fg = yellow,
+    fg = term(2),
   },
 
 }
 
 -- gitsigns
-cmd('hi GitSignsAdd cterm=bold gui=bold guibg=none guifg='..green)
-cmd('hi GitSignsAddNr cterm=bold gui=bold guibg=none guifg='..green)
-cmd('hi GitSignsChange cterm=bold gui=bold guibg=none guifg='..yellow)
-cmd('hi GitSignsChangeNr cterm=bold gui=bold guibg=none guifg='..yellow)
-cmd('hi GitSignsDelete cterm=bold gui=bold guibg=none guifg='..red)
-cmd('hi GitSignsDeleteNr cterm=bold gui=bold guibg=none guifg='..red)
+cmd('hi GitSignsAdd cterm=bold gui=bold guibg=none guifg='..term(2))
+cmd('hi GitSignsAddNr cterm=bold gui=bold guibg=none guifg='..term(2))
+cmd('hi GitSignsChange cterm=bold gui=bold guibg=none guifg='..term(3))
+cmd('hi GitSignsChangeNr cterm=bold gui=bold guibg=none guifg='..term(3))
+cmd('hi GitSignsDelete cterm=bold gui=bold guibg=none guifg='..term(1))
+cmd('hi GitSignsDeleteNr cterm=bold gui=bold guibg=none guifg='..term(1))
+
+-- cmp
+cmd('hi CmpItmAbbrMatch guibg=NONE guifg=#123456')
+cmd('hi CmpItmAbbrMatchFuzzy guibg=NONE guifg=#123456')
+cmd('hi CmpItmAbbrFunction guibg=NONE guifg=#123456')
+cmd('hi CmpItmAbbrMethod guibg=NONE guifg=#123456')
+cmd('hi CmpItmAbbrVariable guibg=NONE guifg=#123456')
+cmd('hi CmpItmAbbrMatch guibg=NONE guifg=#123456')
 
 gen_highlghts(highlghts)
 

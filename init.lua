@@ -35,7 +35,7 @@ g.gitblame_date_format = '%r'
 
 cmd('nnoremap <buffer><silent> <c-q> <cmd>call Black()<cr>')
 cmd('inoremap <buffer><silent> <c-q> <cmd>call Black()<cr>')
-
+--
 require('keymap')
 require('colors')
 require('modules.setup')
