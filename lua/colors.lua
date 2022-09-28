@@ -206,17 +206,17 @@ local highlghts = {
   LineNr = {
     gui = "bold",
     bg = "none",
-    fg = bg_3,
+    fg = bg_4,
   },
   LineNrAbove = {
     gui = "bold",
     bg = "none",
-    fg = bg_2,
+    fg = bg_4,
   },
   LineNrBelow = {
     gui = "bold",
     bg = "none",
-    fg = bg_2,
+    fg = bg_4,
   },
 
   -- nvim tree

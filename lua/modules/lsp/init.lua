@@ -92,6 +92,7 @@ cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex 
 
 -- python
 require('lspconfig')['pyright'].setup{}
+
 -- lua
 require('lspconfig')['sumneko_lua'].setup{
   settings = { Lua = {

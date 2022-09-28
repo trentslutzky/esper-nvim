@@ -150,5 +150,11 @@ require("octo").setup({
   timeline_indent = "4";
 })
 
-require("yanky").setup({})
+require("yanky").setup({
+  highlight = {
+    on_put = true,
+    on_yank = true,
+    timer = 100,
+  },
+})
 
