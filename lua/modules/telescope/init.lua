@@ -27,6 +27,7 @@ require('telescope').setup({
         { "Commit Url", "GitBlameOpenCommitURL" },
         { "Line Url", ":lua require('gitlinker').get_buf_range_url()" },
         { "Status", "Telescope git_status" },
+        { "Open file in github", ":lua require('modules.telescope').git_file_link()" },
       },
       {
         "Octo",
@@ -50,6 +51,10 @@ require('telescope').setup({
         { "kitty", "e ~/.config/kitty/kitty.conf" },
         { "nvim", "e ~/.config/nvim" },
         { ".config", "e ~/.config" },
+      },
+      {
+        "Format",
+        { "json", "%!jq '.'" },
       },
     },
   },
@@ -77,6 +82,11 @@ M.project_files = function()
       prompt_title = "",
     })
   end
+end
+
+M.git_file_link = function()
+  local file_link = vim.fn.fnamemodify(vim.fn.expand('%'), ':p:~:.')
+  io.popen("gh browse "..file_link)
 end
 
 return M
