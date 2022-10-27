@@ -59,12 +59,12 @@ local highlghts = {
   },
 
   BufferLineBackground = {
-    fg = bg_3,
+    fg = foreground,
     bg = bg_1,
   },
 
   BufferLineCloseButton = {
-    fg = bg_3,
+    fg = foreground,
     bg = bg_1,
   },
 
@@ -104,10 +104,18 @@ local highlghts = {
     bg = bg_2,
   },
 
+  Visual = {
+    bg = bg_3,
+  },
+
   -- telescope
 
   TelescopeNormal = {
     bg = bg_1,
+  },
+
+  TelescopeSelection = {
+    bg = bg_2,
   },
 
   TelescopeBorder = {
@@ -117,6 +125,12 @@ local highlghts = {
 
   TelescopePreviewNormal = {
     bg = bg_2,
+  },
+
+  TelescopePreviewLine = {
+    bg = bg_3,
+    fg = blue,
+    gui = "bold",
   },
 
   TelescopePreviewTitle = {
@@ -206,17 +220,17 @@ local highlghts = {
   LineNr = {
     gui = "bold",
     bg = "none",
-    fg = bg_4,
+    fg = bg_3,
   },
   LineNrAbove = {
     gui = "bold",
     bg = "none",
-    fg = bg_4,
+    fg = bg_2,
   },
   LineNrBelow = {
     gui = "bold",
     bg = "none",
-    fg = bg_4,
+    fg = bg_2,
   },
 
   -- nvim tree

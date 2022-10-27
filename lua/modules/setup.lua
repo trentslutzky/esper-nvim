@@ -1,7 +1,7 @@
 local term = require('util').term
 
 require('gitsigns').setup({})
---
+
 require('nvim-web-devicons').setup{default=true}
 
 require('nvim-autopairs').setup({
@@ -83,12 +83,12 @@ require("bufferline").setup{
   },
 }
 
-require('cinnamon').setup{
-  extra_keymaps = true,
-  horizontal_scroll = false,
-  centered = true,
-  default_delay = 5,
-}
+-- require('cinnamon').setup{
+--   extra_keymaps = true,
+--   horizontal_scroll = false,
+--   centered = true,
+--   default_delay = 5,
+-- }
 
 require("nvim-tree").setup {
   view = {

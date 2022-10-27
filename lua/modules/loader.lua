@@ -29,6 +29,7 @@ return require("packer").startup({function()
   use "onsails/lspkind.nvim"
   use "ray-x/lsp_signature.nvim"
   use "windwp/nvim-autopairs"
+  use "sheerun/vim-polyglot"
 
 
   -- language-sepcific stuff
@@ -88,7 +89,7 @@ return require("packer").startup({function()
   use "glepnir/dashboard-nvim"
 
   -- smooth scrolling
-  use "declancm/cinnamon.nvim"
+  -- use "declancm/cinnamon.nvim"
 
   -- nvim tree
   use {
