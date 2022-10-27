@@ -1,5 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
+"
+"  THIS FILE IS UNUSED NOW!
+"
+
 " cursorline
 Plug 'miyakogi/conoline.vim'
 
