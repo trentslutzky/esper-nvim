@@ -127,4 +127,4 @@ require('nvim-treesitter.configs').setup{
   },
 }
 
-require'lspconfig'.denols.setup{}
+--require'lspconfig'.denols.setup{}

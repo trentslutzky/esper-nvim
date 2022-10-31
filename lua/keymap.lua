@@ -30,7 +30,7 @@ set("n","<C-O>","<C-W>l")
 -- switch buffers with control-t
 set("n","<C-T>","<cmd>bn<cr>")
 
--- close buffers with control-t
+-- close buffers with control-w
 set("n","<C-W>","<cmd>bd<cr>")
 
 -- open close nvimtree
