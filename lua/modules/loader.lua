@@ -1,7 +1,3 @@
-local cmd = vim.cmd
-
-cmd [[packadd packer.nvim]]
-
 return require("packer").startup({function()
   -- Packer can manage itself
   use "wbthomason/packer.nvim"
@@ -29,7 +25,7 @@ return require("packer").startup({function()
   use "onsails/lspkind.nvim"
   use "ray-x/lsp_signature.nvim"
   use "windwp/nvim-autopairs"
-  use "sheerun/vim-polyglot"
+  --use "sheerun/vim-polyglot"
 
 
   -- language-sepcific stuff
@@ -107,7 +103,7 @@ return require("packer").startup({function()
   use "petertriho/nvim-scrollbar"
 
   -- autoclose
-  use "max-0406/autoclose.nvim"
+  -- use "max-0406/autoclose.nvim"
 
   -- clipboard stuff
   use "gbprod/yanky.nvim"
@@ -122,10 +118,6 @@ return require("packer").startup({function()
   use {
     "ruifm/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",
-  }
-
-  use {
-    'habamax/vim-godot'
   }
 
 end,

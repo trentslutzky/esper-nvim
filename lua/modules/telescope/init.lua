@@ -54,7 +54,7 @@ require('telescope').setup({
       },
       {
         "Format",
-        { "json", "%!jq '.'" },
+        { "format", "gggqG" },
       },
     },
   },
