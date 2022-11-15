@@ -1,4 +1,3 @@
-local term = require('util').term
 local get_os_command_output = require('util').get_os_command_output
 
 local actions = require("telescope.actions")
