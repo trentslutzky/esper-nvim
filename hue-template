@@ -230,7 +230,7 @@ local highlghts = {
 
   Cursorline = {
     gui = "bold",
-    bg = bg_2,
+    bg = bg_1,
   },
 
   CursorlineNr = {
