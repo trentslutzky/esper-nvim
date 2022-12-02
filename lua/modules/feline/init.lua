@@ -21,11 +21,15 @@ local vi_mode_colors = {
   i = term(4),
 }
 
-local background_color = "#c8c8c8"
-
 local function vi_mode_color()
   return vi_mode_colors[vim.fn.mode()] or term(7)
 end
+
+local function get_color(group, attr)
+    return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
+end
+
+print(get_color("Normal", "bg#"))
 
 -- LEFT SIDE
 
@@ -70,7 +74,6 @@ components.active[1][2] = {
       .get_icon_color(api.nvim_buf_get_name(0))
     return{
       fg = icon_color,
-      -- bg = background_color
     }
   end,
   left_sep = '  ',
@@ -146,9 +149,9 @@ components.active[2][4] = {
   --right_sep = '█',
 }
 
--- local my_theme = {
---   bg = background_color
--- }
+local my_theme = {
+  bg = get_color("NormalFloat", "bg#")
+}
 
 require("feline").setup({
   components = components,

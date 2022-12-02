@@ -1,3 +1,4 @@
+#[target] /Users/trent/.config/nvim/lua/colors.lua
 
 local set = vim.opt
 local cmd = vim.cmd
@@ -24,21 +25,21 @@ local function gen_highlghts(highlights)
   end
 end
 
-local bg_0 = "#050806"
-local bg_1 = "#111111"
-local bg_2 = "#222222"
-local bg_3 = "#333333"
+local bg_0 = "{{background}}"
+local bg_1 = "{{background1}}"
+local bg_2 = "{{background2}}"
+local bg_3 = "{{background3}}"
 
-local foreground = "#dddddd"
-local foreground1 = "#888e99"
-local foreground2 = "#6c717a"
+local foreground = "{{foreground}}"
+local foreground1 = "{{foreground1}}"
+local foreground2 = "{{foreground2}}"
 
-local red = "#e06c75"
-local green = "#98c379"
-local yellow = "#e5c07b"
-local blue = "#61afef"
-local magenta = "#c678dd"
-local cyan = "#56b6c2"
+local red = "{{color1}}"
+local green = "{{color2}}"
+local yellow = "{{color3}}"
+local blue = "{{color4}}"
+local magenta = "{{color5}}"
+local cyan = "{{color6}}"
 
 local highlghts = {
 

@@ -120,6 +120,10 @@ return require("packer").startup({function()
     requires = "nvim-lua/plenary.nvim",
   }
 
+  use "vimwiki/vimwiki"
+  
+  use "sbdchd/neoformat"
+
 end,
 config = {
   display = {
