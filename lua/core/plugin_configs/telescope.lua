@@ -19,36 +19,36 @@ require('telescope').setup({
     command_palette = {
       {
         "Git",
-        { "Reset Buffer", "Gitsigns reset_hunk" },
-        { "Reset Hunk", "Gitsigns reset_hunk" },
-        { "Preview Hunk", "Gitsigns preview_hunk" },
-        { "Toggle Signs", "Gitsigns toggle_signs" },
-        { "Commit Url", "GitBlameOpenCommitURL" },
-        { "Line Url", ":lua require('gitlinker').get_buf_range_url()" },
-        { "Status", "Telescope git_status" },
-        { "Open file in github", ":lua require('modules.telescope').git_file_link()" },
+        { "View Diff",           "Gitsigns preview_hunk_inline" },
+        { "Reset Buffer",        "Gitsigns reset_hunk" },
+        { "Reset Hunk",          "Gitsigns reset_hunk" },
+        { "Toggle Signs",        "Gitsigns toggle_signs" },
+        { "Commit Url",          "GitBlameOpenCommitURL" },
+        { "Line Url",            ":lua require('gitlinker').get_buf_range_url()" },
+        { "Status",              "Telescope git_status" },
+        { "Open file in github", ":lua require('core.telescope').git_file_link()" },
       },
       {
         "Octo",
         { "Checks", "Octo pr checks" },
-        { "Pulls", "Octo pr list assignee=trentslutzky" },
+        { "Pulls",  "Octo pr list assignee=trentslutzky" },
         { "Issues", "Octo issue list assignee=trentslutzky" },
       },
       {
         "Neovim",
-        { "checkhealth", ":checkhealth" },
-        { "commands", ":lua require('telescope.builtin').commands()" },
+        { "checkhealth",     ":checkhealth" },
+        { "commands",        ":lua require('telescope.builtin').commands()" },
         { "command history", ":lua require('telescope.builtin').command_history()" },
-        { "registers", ":lua require('telescope.builtin').registers()" },
-        { "options", ":lua require('telescope.builtin').vim_options()" },
-        { "keymaps", ":lua require('telescope.builtin').keymaps()" },
-        { "buffers", ":Telescope buffers" },
-        { "search history", ":lua require('telescope.builtin').search_history()" },
+        { "registers",       ":lua require('telescope.builtin').registers()" },
+        { "options",         ":lua require('telescope.builtin').vim_options()" },
+        { "keymaps",         ":lua require('telescope.builtin').keymaps()" },
+        { "buffers",         ":Telescope buffers" },
+        { "search history",  ":lua require('telescope.builtin').search_history()" },
       },
       {
         "Configs",
-        { "kitty", "e ~/.config/kitty/kitty.conf" },
-        { "nvim", "e ~/.config/nvim" },
+        { "kitty",   "e ~/.config/kitty/kitty.conf" },
+        { "nvim",    "e ~/.config/nvim" },
         { ".config", "e ~/.config" },
       },
       {
@@ -85,7 +85,7 @@ end
 
 M.git_file_link = function()
   local file_link = vim.fn.fnamemodify(vim.fn.expand('%'), ':p:~:.')
-  io.popen("gh browse "..file_link)
+  io.popen("gh browse " .. file_link)
 end
 
 return M

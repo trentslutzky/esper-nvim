@@ -2,6 +2,7 @@ local api = vim.api
 local fn = vim.fn
 local g = vim.g
 local term = require('util').term
+local colors = require('colors')
 
 -- Initialize the components table
 local components = {
@@ -17,8 +18,9 @@ table.insert(components.inactive, {})
 table.insert(components.inactive, {})
 
 local vi_mode_colors = {
-  n = term(2),
-  i = term(4),
+  n = term(4),
+  i = term(2),
+  c = term(5),
 }
 
 local function vi_mode_color()
@@ -28,8 +30,6 @@ end
 local function get_color(group, attr)
     return fn.synIDattr(fn.synIDtrans(fn.hlID(group)), attr)
 end
-
-print(get_color("Normal", "bg#"))
 
 -- LEFT SIDE
 
@@ -49,9 +49,9 @@ components.active[1][1] = {
         }
     end,
     --left_sep = '█',
-    right_sep = '█',
+    -- right_sep = '█',
     left_sep = '█',
-    -- right_sep = '█',
+    right_sep = '█',
     icon = '',
     opts = {
       padding = 'center',
@@ -64,10 +64,18 @@ components.active[1][2] = {
     local icon_str, _ = require('nvim-web-devicons')
       .get_icon_color(api.nvim_buf_get_name(0))
 
-    local filename = api.nvim_buf_get_name(0)
-    filename = fn.fnamemodify(filename, ':t')
+    if not icon_str then
+      icon_str = " "
+    end
 
-    return icon_str .. " " .. filename
+    local filepath = api.nvim_buf_get_name(0)
+    local filename = fn.fnamemodify(filepath, ':t')
+
+    if filename == "" then
+      return "[No Name]"
+    end
+
+    return icon_str .. ' ' .. filename
   end,
   hl = function()
     local _, icon_color = require('nvim-web-devicons')
@@ -80,10 +88,10 @@ components.active[1][2] = {
   right_sep = '  ',
 }
 
-
 -- RIGHT SIDE
-g.gitblame_display_virtual_text = 0
+
 -- git blame
+g.gitblame_display_virtual_text = 0
 components.active[2][1] = {
   provider = function()
     local git_blame = require('gitblame')
@@ -110,44 +118,42 @@ components.active[2][1] = {
 -- git branch
 components.active[2][2] = {
   provider = 'git_branch',
-  left_sep = '█',
-  right_sep = '█',
-  -- left_sep = '█',
-  --right_sep = '█ ',
+  left_sep = '█',
+  right_sep = '█',
   hl = function()
     return{
-      fg = term(0),
-      bg = term(4),
+      --bg = term(4),
+      fg = term(2),
     }
   end,
 }
 
 -- position
-components.active[2][3] = {
-  provider = 'position',
-  hl = function()
-    return{
-      fg = term(0),
-      bg = vi_mode_color(),
-    }
-  end,
-  left_sep = '█',
-  --left_sep = '█',
-  right_sep = '█',
-}
+-- components.active[2][3] = {
+--   provider = 'position',
+--   hl = function()
+--     return{
+--       fg = term(0),
+--       bg = vi_mode_color(),
+--     }
+--   end,
+--   --left_sep = '█',
+--   left_sep = '█',
+--   right_sep = '█',
+-- }
 
-components.active[2][4] = {
-  provider = 'line_percentage',
-  hl = function()
-    return{
-      fg = term(0),
-      bg = vi_mode_color(),
-    }
-  end,
-  left_sep = '',
-  right_sep = '█',
-  --right_sep = '█',
-}
+-- components.active[2][4] = {
+--   provider = 'line_percentage',
+--   hl = function()
+--     return{
+--       fg = term(0),
+--       bg = vi_mode_color(),
+--     }
+--   end,
+--   left_sep = '',
+--   right_sep = '█',
+--   --right_sep = '█',
+-- }
 
 local my_theme = {
   bg = get_color("NormalFloat", "bg#")

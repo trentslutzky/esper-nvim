@@ -24,10 +24,10 @@ local function gen_highlghts(highlights)
   end
 end
 
-local bg_0 = "#050806"
-local bg_1 = "#111111"
-local bg_2 = "#222222"
-local bg_3 = "#333333"
+local bg_0 = "#0C1316"
+local bg_1 = "#14232A"
+local bg_2 = "#182D36"
+local bg_3 = "#1D3742"
 
 local foreground = "#dddddd"
 local foreground1 = "#888e99"
@@ -35,10 +35,12 @@ local foreground2 = "#6c717a"
 
 local red = "#e06c75"
 local green = "#98c379"
-local yellow = "#e5c07b"
+local yellow = "#f4bf58"
 local blue = "#61afef"
 local magenta = "#c678dd"
 local cyan = "#56b6c2"
+
+local buffer_line_background = bg_0
 
 local highlghts = {
 
@@ -70,24 +72,25 @@ local highlghts = {
   Keyword = { fg = red },
 
   NormalFloat = {
-    bg = bg_1,
+    bg = bg_2,
     fg = blue,
   },
+
 
   -- bufferline
 
   BufferLineFill = {
-    bg = bg_0,
+    bg = buffer_line_background,
   },
 
   BufferLineBackground = {
     fg = foreground,
-    bg = bg_1,
+    bg = bg_2,
   },
 
   BufferLineCloseButton = {
-    fg = foreground,
-    bg = bg_1,
+    bg = foreground,
+    fg = buffer_line_background,
   },
 
   BufferLineCloseButtonSelected = {
@@ -96,14 +99,14 @@ local highlghts = {
   },
 
   BufferLineBufferSelected = {
-    fg = green,
     bg = bg_2,
+    fg = green,
     gui = "bold",
   },
 
   BufferLineModified = {
     fg = green,
-    bg = bg_1,
+    bg = bg_2,
   },
 
   BufferLineModifiedSelected = {
@@ -112,18 +115,33 @@ local highlghts = {
   },
 
   BufferLineSeparator = {
-    fg = bg_0,
-    bg = bg_1,
+    bg = buffer_line_background,
+    fg = buffer_line_background,
+  },
+
+  BufferLineIndicator = {
+    bg = buffer_line_background,
+    fg = buffer_line_background,
+  },
+
+  BufferLineIndicatorSelected = {
+    bg = buffer_line_background,
+    fg = buffer_line_background,
+  },
+
+  BufferLineIndicatorVisible = {
+    bg = buffer_line_background,
+    fg = buffer_line_background,
   },
 
   BufferLineSeparatorVisible = {
-    fg = bg_0,
-    bg = bg_1,
+    bg = buffer_line_background,
+    fg = buffer_line_background,
   },
 
   BufferLineSeparatorSelected = {
-    fg = bg_0,
-    bg = bg_2,
+    bg = buffer_line_background,
+    fg = buffer_line_background,
   },
 
   Visual = {
@@ -193,10 +211,13 @@ local highlghts = {
 
   -- lsp diagnostics
 
-  DiagnosticError = { fg = red },
-  DiagnosticWarn = { fg = yellow },
-  DiagnosticHint = { fg = yellow },
-  DiagnosticInfo = { fg = yellow },
+  DiagnosticError = {
+    fg = red,
+    bg = "none",
+  },
+  DiagnosticWarn = { fg = yellow, bg = "none" },
+  DiagnosticHint = { fg = cyan, bg = "none" },
+  DiagnosticInfo = { fg = green, bg = "none" },
 
   -- search highlighting
   --
@@ -234,7 +255,8 @@ local highlghts = {
 
   CursorlineNr = {
     gui = "bold",
-    fg = foreground,
+    fg = blue,
+    bg = bg_1,
   },
 
   -- line numbers
@@ -242,32 +264,34 @@ local highlghts = {
   LineNr = {
     gui = "bold",
     bg = "none",
-    fg = bg_3,
+    fg = foreground1,
   },
+
   LineNrAbove = {
     gui = "bold",
     bg = "none",
-    fg = bg_2,
+    fg = foreground2,
   },
+
   LineNrBelow = {
     gui = "bold",
     bg = "none",
-    fg = bg_2,
+    fg = foreground2,
   },
 
   -- nvim tree
 
   NvimTreeNormal = {
-    bg = bg_1,
+    bg = bg_0,
   },
 
   NvimTreeCursorLine = {
-    bg = bg_2,
+    bg = bg_3,
   },
 
   NvimTreeWinSeparator = {
-    bg = bg_1,
-    fg = bg_1,
+    bg = bg_0,
+    fg = bg_2,
   },
 
   -- octo
@@ -350,6 +374,26 @@ local highlghts = {
 
   ScrollbarMiscHandle = {
     bg = bg_1
+  },
+
+  DashboardCenter = {
+    fg = green,
+  },
+
+  DashboardHeader = {
+    fg = yellow,
+  },
+
+  VertSplit = {
+    fg = bg_3,
+    bg = bg_0,
+  },
+
+  Floaterm = {
+    bg = bg_1,
+  },
+  FloatermBorder = {
+    bg = bg_1,
   }
 
 }
@@ -363,4 +407,3 @@ cmd('hi GitSignsDelete cterm=bold gui=bold guibg=none guifg='..red)
 cmd('hi GitSignsDeleteNr cterm=bold gui=bold guibg=none guifg='..red)
 
 gen_highlghts(highlghts)
-

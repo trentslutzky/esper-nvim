@@ -1,0 +1,28 @@
+return require("packer").startup({function()
+  -- Packer can manage itself
+  use "wbthomason/packer.nvim"
+
+  -- plenary is always needed nowadays
+  use "nvim-lua/plenary.nvim"
+
+  -- my colorscheme (I need to make this rely on hue instead)
+  use "trentslutzky/onehalf"
+
+  -- telescope is essential
+  -- https://github.com/nvim-telescope/telescope.nvim
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-github.nvim" },
+      { "cljoly/telescope-repo.nvim" },
+      { "LinArcX/telescope-command-palette.nvim" },
+    },
+  }
+
+end,
+config = {
+  display = {
+    open_fn = require("packer.util").float,
+  }
+}})
