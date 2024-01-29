@@ -66,19 +66,17 @@ local plugins = {
   "kevinhwang91/nvim-hlslens",
   "petertriho/nvim-scrollbar",
   "terrortylor/nvim-comment",
-  "lukas-reineke/indent-blankline.nvim",
+  {"lukas-reineke/indent-blankline.nvim", main="ibl"},
   "ruifm/gitlinker.nvim",
+
   "akinsho/bufferline.nvim",
   "lewis6991/gitsigns.nvim",
 
-  "alec-gibson/nvim-tetris",
-  "folke/twilight.nvim",
+  "famiu/bufdelete.nvim",
 
   "voldikss/vim-floaterm",
 
   "klen/nvim-test",
-
-  -- TODO: test
 
   "folke/todo-comments.nvim",
 

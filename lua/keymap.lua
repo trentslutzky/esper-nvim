@@ -18,9 +18,10 @@ set("n","<leader>gS","<cmd>Telescope grep_string<cr>")
 set("v","<leader>gS","<cmd>Telescope grep_string<cr>")
 set("n","<leader>lg","<cmd>lua require('telescope.builtin').live_grep({ file_ignore_patterns = {'tests'} })<cr>")
 set("n","<leader>lG","<cmd>Telescope live_grep<cr>")
-set("n","<leader>b","<cmd>Telescope buffers theme=ivy<cr> previewer=false")
+set("n","<leader>b","<cmd>Telescope buffers theme=ivy previewer=false <cr>")
 set("n","<leader>k","<cmd>Telescope keymaps<cr>")
 set("n","<leader>t","<cmd>Telescope resume<cr>")
+set("n","<leader>h","<cmd>Telescope highlights<cr>")
 set("n","<leader>c","<cmd>Telescope command_palette theme=ivy<cr>")
 set("n","<leader>p","<cmd>Gitsigns preview_hunk_inline<cr>")
 
@@ -29,6 +30,11 @@ set("n","<C-N>","<C-W>h")
 set("n","<C-E>","<C-W>j")
 set("n","<C-U>","<C-W>k")
 set("n","<C-O>","<C-W>l")
+-- also arrow keys for when using laptop keyboard
+set("n","<C-Left>","<C-W>h")
+set("n","<C-Down>","<C-W>j")
+set("n","<C-Up>","<C-W>k")
+set("n","<C-Right>","<C-W>l")
 
 -- switch buffers with control-t
 set("n","<C-T>","<cmd>bn<cr>")
@@ -53,9 +59,6 @@ set("n", "*", "*zz")
 
 -- run custom function to run testclass under cursor
 set("n", "<leader>R", "<cmd>lua RunTestUnderCursor()<cr>")
-
--- open Glow
--- set("n", "<leader>g", "<cmd>Glow<cr>")
 
 -- codium
 --https://github.com/Exafunction/codeium.vim

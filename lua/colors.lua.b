@@ -5,43 +5,51 @@ local cmd = vim.cmd
 cmd('syntax on')
 set.termguicolors = true
 
-local bg_0 = "#131313"
-local bg_1 = "#1f1f1f"
-local bg_2 = "#333333"
-local bg_3 = "#444444"
+cmd('colorscheme onehalfdark')
+set.background = 'dark'
 
-local foreground = "#c5c8c6"
-local foreground1 = "#b1b3b2"
-local foreground2 = "#7e807f"
+local function gen_highlghts(highlights)
+  for name,h in pairs(highlights) do
+    local command = "hi " .. name
+    if h["fg"] ~= nil then
+      command = command .. " guifg=" .. h["fg"]
+    end
+    if h["bg"] ~= nil then
+      command = command .. " guibg=" .. h["bg"]
+    end
+    if h["gui"] ~= nil then
+      command = command .. " gui=" .. h["gui"]
+    end
+    cmd(command)
+  end
+end
 
-local red = "#cacccb"
-local green = "#b1b3b2"
-local yellow = "#979998"
-local blue = "#D7D9D8"
-local magenta = "#7e807f"
-local cyan = "#727372"
+local bg_0 = "#0C1316"
+local bg_1 = "#14232A"
+local bg_2 = "#182D36"
+local bg_3 = "#1D3742"
 
-local accent_green = "#aed466"
-local accent_yellow = "#ffbc4a"
-local accent_red = "#E36049"
-local accent_blue = "#7FACCA"
-local accent_magenta = "#7F81CA"
+local foreground = "#dddddd"
+local foreground1 = "#888e99"
+local foreground2 = "#6c717a"
 
-local buffer_line_background = bg_1
+local red = "#e06c75"
+local green = "#98c379"
+local yellow = "#f4bf58"
+local blue = "#61afef"
+local magenta = "#c678dd"
+local cyan = "#56b6c2"
+
+local buffer_line_background = bg_0
 
 local highlghts = {
 
   Normal = {fg = foreground, bg = bg_0 },
-
-  String = { fg = accent_green },
-  Function = { fg = accent_blue },
-  Number = { fg = accent_yellow },
-  Statement = { fg = accent_magenta },
-  Operator = { fg = accent_yellow, },
-  Repeat = { fg = accent_yellow },
-
+  String = { fg = green },
   Character = { fg = yellow },
+  Function = { fg = blue },
   Special = { fg = blue },
+  Number = { fg = yellow },
   Constant = { fg = cyan },
   Float = { fg = yellow },
   Boolean = { fg = yellow },
@@ -52,46 +60,22 @@ local highlghts = {
   Structure = { fg = yellow },
   StorageClass = { fg = yellow },
   Include = { fg = magenta },
+  Statement = { fg = magenta },
+  Todo = { fg = magenta },
   Conditional = { fg = magenta },
   Exception = { fg = magenta },
   Define = { fg = magenta },
   Label = { fg = magenta },
   Macro = { fg = magenta },
+  Repeat = { fg = magenta },
   Identifier = { fg = red },
   Keyword = { fg = red },
-  NonText = { fg = bg_3 },
-  Directory = { fg = cyan},
-  Error = { fg = red },
-  ErrorMsg = { fg = red },
-  htmlError = { fg = red },
-  javaScriptError = { fg = red },
-  NvimInternalError = { fg = red },
-  Underlined = { fg = cyan },
-  Title = { fg = yellow },
-  Todo = { bg = yellow, fg = bg_0 },
-  SignColumn = { bg = bg_0 },
-
-  StatusLine = { bg = bg_0, gui="none" },
-  StatusLineNC = { bg = bg_0, gui="none" },
-
-  Visual = {
-    bg = bg_3,
-    fg = foreground,
-  },
-
-  Pmenu = {
-    fg = foreground,
-    bg = bg_2
-  },
-
-  CmpItemKindDefault = {
-    fg = accent_yellow
-  },
 
   NormalFloat = {
-    bg = bg_1,
+    bg = bg_2,
     fg = blue,
   },
+
 
   -- bufferline
 
@@ -101,54 +85,46 @@ local highlghts = {
 
   BufferLineBackground = {
     fg = foreground,
-    bg = bg_1,
-  },
-
-  BufferLineModified = {
-    fg = accent_green,
-    bg = bg_1,
+    bg = bg_2,
   },
 
   BufferLineCloseButton = {
     bg = foreground,
     fg = buffer_line_background,
   },
-  
-  -- buffer selected
 
   BufferLineCloseButtonSelected = {
     fg = green,
-    bg = bg_3,
+    bg = bg_2,
   },
 
   BufferLineBufferSelected = {
-    bg = bg_3,
+    bg = bg_2,
     fg = green,
     gui = "bold",
   },
 
+  BufferLineModified = {
+    fg = green,
+    bg = bg_2,
+  },
+
   BufferLineModifiedSelected = {
-    fg = accent_green,
-    bg = bg_3,
-  },
-
-  BufferLineIndicatorSelected = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineSeparatorSelected = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
+    fg = green,
+    bg = bg_2,
   },
 
   BufferLineSeparator = {
-
     bg = buffer_line_background,
     fg = buffer_line_background,
   },
 
   BufferLineIndicator = {
+    bg = buffer_line_background,
+    fg = buffer_line_background,
+  },
+
+  BufferLineIndicatorSelected = {
     bg = buffer_line_background,
     fg = buffer_line_background,
   },
@@ -161,6 +137,15 @@ local highlghts = {
   BufferLineSeparatorVisible = {
     bg = buffer_line_background,
     fg = buffer_line_background,
+  },
+
+  BufferLineSeparatorSelected = {
+    bg = buffer_line_background,
+    fg = buffer_line_background,
+  },
+
+  Visual = {
+    bg = bg_3,
   },
 
   -- telescope
@@ -227,24 +212,22 @@ local highlghts = {
   -- lsp diagnostics
 
   DiagnosticError = {
-    fg = accent_red,
+    fg = red,
     bg = "none",
   },
-
-  DiagnosticWarn = { fg = accent_yellow, bg = "none" },
-  DiagnosticHint = { fg = accent_cyan, bg = "none" },
-  DiagnosticInfo = { fg = accent_green, bg = "none" },
-  DiagnosticUnnecessary = { bg = "none", gui = "underline", guisp = accent_yellow },
+  DiagnosticWarn = { fg = yellow, bg = "none" },
+  DiagnosticHint = { fg = cyan, bg = "none" },
+  DiagnosticInfo = { fg = green, bg = "none" },
 
   -- search highlighting
-  
+  --
   Search = {
-    bg = bg_2,
-    fg = accent_yellow,
+    fg = bg_0,
+    bg = yellow,
   },
 
   HlSearchNear = {
-    fg = accent_yellow,
+    fg = yellow,
     bg = bg_0,
   },
 
@@ -259,7 +242,7 @@ local highlghts = {
   },
 
   HlSearchLensNear = {
-    fg = accent_green,
+    fg = green,
     bg = bg_2,
   },
 
@@ -280,40 +263,35 @@ local highlghts = {
 
   LineNr = {
     gui = "bold",
-    bg = bg_0,
+    bg = "none",
     fg = foreground1,
   },
 
   LineNrAbove = {
     gui = "bold",
-    bg = bg_0,
+    bg = "none",
     fg = foreground2,
   },
 
   LineNrBelow = {
     gui = "bold",
-    bg = bg_0,
+    bg = "none",
     fg = foreground2,
   },
 
   -- nvim tree
 
   NvimTreeNormal = {
-    bg = bg_1,
-    fg = foreground,
-  },
-
-  NvimTreeFolderName = {
-    fg = accent_yellow,
+    bg = bg_0,
   },
 
   NvimTreeCursorLine = {
-    bg = bg_2,
+    bg = bg_3,
   },
 
   NvimTreeWinSeparator = {
-    bg = bg_1,
-    fg = bg_1,
+    bg = bg_0,
+    fg = bg_2,
   },
 
   -- octo
@@ -355,11 +333,7 @@ local highlghts = {
   -- indentline
 
   IndentBlankLineChar = {
-    fg = bg_1
-  },
-
-  IblIndent = {
-    fg = bg_1
+    fg = bg_2
   },
 
   -- comments
@@ -368,13 +342,13 @@ local highlghts = {
     fg = foreground2,
   },
 
-  -- scrollbar
-
-  ScrollbarHandle = {
-    bg = bg_1
+  Operator = {
+    fg = yellow,
   },
 
-  ScrollbarCursor = {
+  -- scrollbar
+  
+  ScrollbarHandle = {
     bg = bg_1
   },
 
@@ -407,80 +381,29 @@ local highlghts = {
   },
 
   DashboardHeader = {
-    fg = yellow
+    fg = yellow,
   },
 
   VertSplit = {
-    fg = bg_2,
-    bg = bg_1,
+    fg = bg_3,
+    bg = bg_0,
   },
 
   Floaterm = {
     bg = bg_1,
   },
-
   FloatermBorder = {
     bg = bg_1,
-  },
-
-  FoldColumn = {
-    bg = bg_0,
-  },
-
-  GitSignsAdd = { fg = accent_green, bg = bg_0 },
-  GitSignsChange = { fg = accent_yellow, bg = bg_0 },
-  GitSignsDelete = { fg = accent_red, bg = bg_0 },
+  }
 
 }
 
 -- gitsigns
--- cmd('hi GitSignsAdd cterm=bold gui=bold guibg=none guifg='..accent_green)
--- cmd('hi GitSignsAddNr cterm=bold gui=bold guibg=none guifg='..accent_green)
--- cmd('hi GitSignsChange cterm=bold gui=bold guibg=none guifg='..accent_yellow)
--- cmd('hi GitSignsChangeNr cterm=bold gui=bold guibg=none guifg='..accent_yellow)
--- cmd('hi GitSignsDelete cterm=bold gui=bold guibg=none guifg='..accent_red)
--- cmd('hi GitSignsDeleteNr cterm=bold gui=bold guibg=none guifg='..accent_red)
-
-local function gen_highlghts(highlights)
-  for name,h in pairs(highlights) do
-    local command = "hi " .. name
-    if h["fg"] ~= nil then
-      command = command .. " guifg=" .. h["fg"]
-    end
-    if h["bg"] ~= nil then
-      command = command .. " guibg=" .. h["bg"]
-    end
-    if h["gui"] ~= nil then
-      command = command .. " gui=" .. h["gui"]
-    end
-    if h["guisp"] ~= nil then
-      command = command .. " guisp=" .. h["guisp"]
-    end
-    cmd(command)
-  end
-end
+cmd('hi GitSignsAdd cterm=bold gui=bold guibg=none guifg='..green)
+cmd('hi GitSignsAddNr cterm=bold gui=bold guibg=none guifg='..green)
+cmd('hi GitSignsChange cterm=bold gui=bold guibg=none guifg='..yellow)
+cmd('hi GitSignsChangeNr cterm=bold gui=bold guibg=none guifg='..yellow)
+cmd('hi GitSignsDelete cterm=bold gui=bold guibg=none guifg='..red)
+cmd('hi GitSignsDeleteNr cterm=bold gui=bold guibg=none guifg='..red)
 
 gen_highlghts(highlghts)
-
-return {
-  bg_0 = bg_0,
-  bg_1 = bg_1,
-  bg_2 = bg_2,
-  bg_3 = bg_3,
-
-  foreground = foreground,
-  foreground1 = foreground1,
-  foreground2 = foreground2,
-
-  red = red,
-  green = green,
-  yellow = yellow,
-  blue = blue,
-  magenta = magenta,
-  cyan = cyan,
-
-  accent_green = accent_green,
-  accent_yellow = accent_yellow,
-  accent_red = accent_red,
-  accent_blue = accent_blue,
-}

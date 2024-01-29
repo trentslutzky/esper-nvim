@@ -9,11 +9,28 @@ require("mason-lspconfig").setup({
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 require("lspconfig").lua_ls.setup {}
-require("lspconfig").pyright.setup {}
-require("lspconfig").eslint.setup {}
+-- require("lspconfig").pyright.setup {}
+require("lspconfig").pylsp.setup {
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          maxLineLength = 999
+        },
+        mccabe = {
+          enabled = false
+        }
+      }
+    }
+  }
+}
+-- require("lspconfig").eslint.setup {}
+
+require("lspconfig").tsserver.setup{}
+
 require("lspconfig").vuels.setup {}
 require("lspconfig").cssls.setup{}
-require'lspconfig'.sourcekit.setup{} -- for swift
+-- require'lspconfig'.sourcekit.setup{} -- for swift
 
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
@@ -30,13 +47,13 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     local sev = diagnostic.severity
     mes = diagnostic.message
     if sev == 1 then
-      echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
+      echostr = echostr .. 'echohl DiagnosticError | echon "  " |'
     elseif sev == 2 then
-    echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
+    echostr = echostr .. 'echohl DiagnosticWarn | echon "  " |'
     elseif sev == 3 then
       echostr = echostr .. 'echohl DiagnosticInfo | echon "  " |'
     elseif sev == 4 then
-      echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
+      echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
     end
     mes = mes:gsub('"',""):gsub("'",""):gsub("`",""):gsub(" |","")
     -- if string.len(echostr) < max_width then

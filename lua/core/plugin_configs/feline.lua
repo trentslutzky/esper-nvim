@@ -1,7 +1,6 @@
 local api = vim.api
 local fn = vim.fn
 local g = vim.g
-local term = require('util').term
 local colors = require('colors')
 
 -- Initialize the components table
@@ -18,13 +17,13 @@ table.insert(components.inactive, {})
 table.insert(components.inactive, {})
 
 local vi_mode_colors = {
-  n = term(4),
-  i = term(2),
-  c = term(5),
+  n = colors.accent_blue,
+  i = colors.accent_green,
+  c = colors.foreground,
 }
 
 local function vi_mode_color()
-  return vi_mode_colors[vim.fn.mode()] or term(7)
+  return vi_mode_colors[vim.fn.mode()] or colors.foreground1
 end
 
 local function get_color(group, attr)
@@ -43,7 +42,7 @@ components.active[1][1] = {
     end,
     hl = function()
         return {
-            fg = term(0),
+            fg = colors.bg_0,
             bg = vi_mode_color(),
             style = 'bold',
         }
@@ -123,7 +122,7 @@ components.active[2][2] = {
   hl = function()
     return{
       --bg = term(4),
-      fg = term(2),
+      fg = colors.accent_red
     }
   end,
 }

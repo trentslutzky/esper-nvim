@@ -4,7 +4,7 @@ local g = vim.g
 require('core.plugin_configs')
 local term = require('util').term
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl })
@@ -40,9 +40,9 @@ require("nvim-tree").setup {
 -- close nvimtree automatically if buffer is clear
 -- credit @EliasA5
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
--- vim.api.nvim_create_autocmd({"QuitPre"}, {
---     callback = function() vim.cmd("NvimTreeClose") end,
--- })
+vim.api.nvim_create_autocmd({"QuitPre"}, {
+    callback = function() vim.cmd("NvimTreeClose") end,
+})
 
 require("yanky").setup({
   highlight = {
@@ -56,10 +56,8 @@ require('numbers').setup({
   excluded_filetypes = {"help","dashboard","octo", "NvimTree", "bufferpane", "SidebarNvim"},
 })
 
-require("indent_blankline").setup {
-  show_first_indent_level = false,
-  show_trailing_blankline_indent = false,
-  filetype_exclude = {"help","dashboard"},
+require("ibl").setup {
+  scope = { enabled = true, show_start = false }
 }
 
 require('hlslens').setup({
@@ -79,6 +77,13 @@ require("scrollbar").setup({
       Hint = { color = term(4) },
       Misc = { color = term(15) },
   },
+  excluded_filetypes = {
+    "cmp_docs",
+    "cmp_menu",
+    "noice",
+    "TelescopePrompt",
+    "NvimTree"
+  }
 })
 
 require'nvim-lastplace'.setup{}
@@ -89,18 +94,18 @@ require('nvim_comment').setup()
 
 require("bufferline").setup{
   options = {
-    diagnostics = false,
+    diagnostics = true,
     show_close_icon = false,
     show_buffer_icons = false,
     color_icons = false,
-    buffer_close_icon = '',
+    buffer_close_icon = '',--'',
     modified_icon = '●',
-    close_icon = '',
+    close_icon = '',--'',
     show_tab_indicators = false,
-    separator_style = { '▎', '▎' },
-    max_name_length = 30,
+    separator_style = { '', '' },
+    max_name_length = 20,
     max_prefix_length = 15,
-    tab_size = 30,
+    tab_size = 25,
     offsets = {{
       filetype = "NvimTree",
       text = "File Browser"
@@ -120,7 +125,16 @@ require("bufferline").setup{
 
 require('gitlinker').setup()
 
-require('gitsigns').setup({})
+require('gitsigns').setup({
+  signs = {
+    add          = { text = '▕' },
+    change       = { text = '▕' },
+    delete       = { text = '╺' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+})
 
 require('autoclose').setup({
   disable_filetype = { "TelescopePrompt" , "vim" },
