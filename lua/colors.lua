@@ -2,13 +2,15 @@
 local set = vim.opt
 local cmd = vim.cmd
 
+local lighten = require('util').lighten
+
 cmd('syntax on')
 set.termguicolors = true
 
 local bg_0 = "#131313"
 local bg_1 = "#1f1f1f"
 local bg_2 = "#333333"
-local bg_3 = "#444444"
+local bg_3 = "#555555"
 
 local foreground = "#c5c8c6"
 local foreground1 = "#b1b3b2"
@@ -38,11 +40,12 @@ local highlghts = {
   Number = { fg = accent_yellow },
   Statement = { fg = accent_magenta },
   Operator = { fg = accent_yellow, },
+  Conditional = { fg = accent_yellow },
   Repeat = { fg = accent_yellow },
+  Constant = { fg = foreground },
 
   Character = { fg = yellow },
   Special = { fg = blue },
-  Constant = { fg = cyan },
   Float = { fg = yellow },
   Boolean = { fg = yellow },
   PreProc = { fg = yellow },
@@ -52,7 +55,6 @@ local highlghts = {
   Structure = { fg = yellow },
   StorageClass = { fg = yellow },
   Include = { fg = magenta },
-  Conditional = { fg = magenta },
   Exception = { fg = magenta },
   Define = { fg = magenta },
   Label = { fg = magenta },
@@ -61,15 +63,20 @@ local highlghts = {
   Keyword = { fg = red },
   NonText = { fg = bg_3 },
   Directory = { fg = cyan},
-  Error = { fg = red },
-  ErrorMsg = { fg = red },
   htmlError = { fg = red },
   javaScriptError = { fg = red },
-  NvimInternalError = { fg = red },
   Underlined = { fg = cyan },
   Title = { fg = yellow },
   Todo = { bg = yellow, fg = bg_0 },
   SignColumn = { bg = bg_0 },
+
+  Error = { fg = accent_red, bg = lighten(accent_red, -50) },
+  ErrorMsg = { fg = accent_red, bg = lighten(accent_red, -50) },
+  NvimInternalError = { fg = accent_red, bg = lighten(accent_red, -50) },
+
+  DiffAdd = { bg = lighten(accent_green, -40), fg = foreground },
+  DiffDelete = { bg = lighten(accent_red, -40), fg = foreground },
+  DiffChange = { bg = lighten(accent_yellow, -40), fg = foreground },
 
   StatusLine = { bg = bg_0, gui="none" },
   StatusLineNC = { bg = bg_0, gui="none" },
@@ -91,76 +98,6 @@ local highlghts = {
   NormalFloat = {
     bg = bg_1,
     fg = blue,
-  },
-
-  -- bufferline
-
-  BufferLineFill = {
-    bg = buffer_line_background,
-  },
-
-  BufferLineBackground = {
-    fg = foreground,
-    bg = bg_1,
-  },
-
-  BufferLineModified = {
-    fg = accent_green,
-    bg = bg_1,
-  },
-
-  BufferLineCloseButton = {
-    bg = foreground,
-    fg = buffer_line_background,
-  },
-  
-  -- buffer selected
-
-  BufferLineCloseButtonSelected = {
-    fg = green,
-    bg = bg_3,
-  },
-
-  BufferLineBufferSelected = {
-    bg = bg_3,
-    fg = green,
-    gui = "bold",
-  },
-
-  BufferLineModifiedSelected = {
-    fg = accent_green,
-    bg = bg_3,
-  },
-
-  BufferLineIndicatorSelected = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineSeparatorSelected = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineSeparator = {
-
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineIndicator = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineIndicatorVisible = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
-  },
-
-  BufferLineSeparatorVisible = {
-    bg = buffer_line_background,
-    fg = buffer_line_background,
   },
 
   -- telescope
@@ -225,19 +162,23 @@ local highlghts = {
   },
 
   -- lsp diagnostics
-
   DiagnosticError = {
     fg = accent_red,
     bg = "none",
   },
 
+  DiagnosticUnderlineError = {
+    gui = "underline",
+    guisp = accent_red
+  },
+
   DiagnosticWarn = { fg = accent_yellow, bg = "none" },
-  DiagnosticHint = { fg = accent_cyan, bg = "none" },
+  DiagnosticHint = { fg = accent_yellow, bg = "none" },
   DiagnosticInfo = { fg = accent_green, bg = "none" },
   DiagnosticUnnecessary = { bg = "none", gui = "underline", guisp = accent_yellow },
 
   -- search highlighting
-  
+
   Search = {
     bg = bg_2,
     fg = accent_yellow,
@@ -312,8 +253,8 @@ local highlghts = {
   },
 
   NvimTreeWinSeparator = {
-    bg = bg_1,
-    fg = bg_1,
+    bg = bg_0,
+    fg = bg_0,
   },
 
   -- octo

@@ -57,7 +57,7 @@ require('numbers').setup({
 })
 
 require("ibl").setup {
-  scope = { enabled = true, show_start = false }
+  scope = { enabled = false, show_start = false }
 }
 
 require('hlslens').setup({
@@ -92,38 +92,36 @@ require('todo-comments').setup()
 
 require('nvim_comment').setup()
 
-require("bufferline").setup{
-  options = {
-    diagnostics = true,
-    show_close_icon = false,
-    show_buffer_icons = false,
-    color_icons = false,
-    buffer_close_icon = '',--'',
-    modified_icon = '●',
-    close_icon = '',--'',
-    show_tab_indicators = false,
-    separator_style = { '', '' },
-    max_name_length = 20,
-    max_prefix_length = 15,
-    tab_size = 25,
-    offsets = {{
-      filetype = "NvimTree",
-      text = "File Browser"
-    },
-    {
-      filetype = "bufferpane",
-      text = "bufferpane"
-    }
-  },
-    hover = {
-        enabled = true,
-        delay = 200,
-        reveal = {'close'}
-    }
-  },
-}
-
-require('gitlinker').setup()
+-- require("bufferline").setup{
+--   options = {
+--     diagnostics = true,
+--     show_close_icon = false,
+--     show_buffer_icons = false,
+--     color_icons = false,
+--     buffer_close_icon = '',--'',
+--     modified_icon = '●',
+--     close_icon = '',--'',
+--     show_tab_indicators = false,
+--     separator_style = { '', '' },
+--     max_name_length = 20,
+--     max_prefix_length = 15,
+--     tab_size = 25,
+--     offsets = {{
+--       filetype = "NvimTree",
+--       text = "File Browser"
+--     },
+--     {
+--       filetype = "bufferpane",
+--       text = "bufferpane"
+--     }
+--   },
+--     hover = {
+--         enabled = true,
+--         delay = 200,
+--         reveal = {'close'}
+--     }
+--   },
+-- }
 
 require('gitsigns').setup({
   signs = {
@@ -136,29 +134,33 @@ require('gitsigns').setup({
   },
 })
 
-require('autoclose').setup({
-  disable_filetype = { "TelescopePrompt" , "vim" },
-})
+-- require('autoclose').setup({
+--   disable_filetype = { "TelescopePrompt" , "vim" },
+-- })
 
 g.floaterm_title = ""
 g.floaterm_borderchars = "        "
 g.floaterm_autoclose = 0
 
 -- require('bufferpane').setup()
---
 
 require('nvim-test').setup()
 
-require('neorg').setup {
-    load = {
-        ["core.defaults"] = {},
-        ["core.dirman"] = {
-            config = {
-                workspaces = {
-                    narmi = "~/notes/narmi",
-                    finances = "~/notes/finances",
-                }
-            }
-        }
-    }
+-- require('neorg').setup {
+--     load = {
+--         ["core.defaults"] = {},
+--         ["core.dirman"] = {
+--             config = {
+--                 workspaces = {
+--                     narmi = "~/notes/narmi",
+--                     finances = "~/notes/finances",
+--                 }
+--             }
+--         }
+--     }
+-- }
+
+require('gitblame').setup {
+  enabled = true,
+  display_virtual_text = false,
 }

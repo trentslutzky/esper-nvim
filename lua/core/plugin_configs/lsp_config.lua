@@ -8,7 +8,15 @@ require("mason-lspconfig").setup({
 })
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-require("lspconfig").lua_ls.setup {}
+require("lspconfig").lua_ls.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'},
+      }
+    }
+  }
+}
 -- require("lspconfig").pyright.setup {}
 require("lspconfig").pylsp.setup {
   settings = {
@@ -31,6 +39,8 @@ require("lspconfig").tsserver.setup{}
 require("lspconfig").vuels.setup {}
 require("lspconfig").cssls.setup{}
 -- require'lspconfig'.sourcekit.setup{} -- for swift
+--
+
 
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
@@ -39,11 +49,16 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 
   local line_diagnostics = vim.diagnostic.get(bufnr, opts, client_id)
 
-  local echostr = ''
+  local echostr = 'echon "errors" |'
   local num_err = 0
   local mes = ''
+
   for _, diagnostic in ipairs(line_diagnostics) do
     num_err = num_err + 1
+    if num_err > 1 then
+      echostr = echostr .. " | "
+    end
+    echostr = echostr .. " echohl Normmal | echon ' " .. num_err .. "' | "
     local sev = diagnostic.severity
     mes = diagnostic.message
     if sev == 1 then
@@ -56,16 +71,14 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
       echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
     end
     mes = mes:gsub('"',""):gsub("'",""):gsub("`",""):gsub(" |","")
-    -- if string.len(echostr) < max_width then
-    -- echostr = (echostr .. " echon '" .. mes .. "' |")
-    -- end
+    echostr = echostr .. ' echon "' .. mes .. '"'
   end
-
-  -- echostr = (" echohl Normmal | echon '" .. num_err .. " err: ' |" .. echostr)
+  
+  -- echostr = (" echohl Normmal | echon '" .. num_err .. " errors' |" .. echostr)
 
   if num_err > 0 then
-    print(mes)
-    -- vim.cmd(echostr)
+    vim.cmd(echostr)
+    -- print(echostr)
   end
 end
 

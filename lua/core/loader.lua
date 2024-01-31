@@ -5,7 +5,7 @@ local plugins = {
   "nvim-lua/plenary.nvim",
 
   -- my colorscheme (I need to make this rely on hue instead)
-  "trentslutzky/onehalf",
+  -- "trentslutzky/onehalf",
 
   -- telescope is essential
   {
@@ -49,16 +49,16 @@ local plugins = {
   "honza/vim-snippets",
 
   -- sidebar
-  "sidebar-nvim/sidebar.nvim",
+  -- "sidebar-nvim/sidebar.nvim",
 
   -- autoclose
-  "m4xshen/autoclose.nvim",
+  -- "m4xshen/autoclose.nvim",
 
   -- git blame
   "f-person/git-blame.nvim",
 
-  -- feline
-  "feline-nvim/feline.nvim",
+  -- heirline (Status bar and buffer bar)
+  "rebelot/heirline.nvim",
 
   "gbprod/yanky.nvim",
   "nkakouros-original/numbers.nvim",
@@ -67,9 +67,9 @@ local plugins = {
   "petertriho/nvim-scrollbar",
   "terrortylor/nvim-comment",
   {"lukas-reineke/indent-blankline.nvim", main="ibl"},
-  "ruifm/gitlinker.nvim",
 
-  "akinsho/bufferline.nvim",
+  -- "ruifm/gitlinker.nvim",
+
   "lewis6991/gitsigns.nvim",
 
   "famiu/bufdelete.nvim",
@@ -84,26 +84,26 @@ local plugins = {
   --
 
   -- neorg
-  {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {}, -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = { -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-neorg/neorg",
+  --   build = ":Neorg sync-parsers",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function()
+  --     require("neorg").setup {
+  --       load = {
+  --         ["core.defaults"] = {}, -- Loads default behaviour
+  --         ["core.concealer"] = {}, -- Adds pretty icons to your documents
+  --         ["core.dirman"] = { -- Manages Neorg workspaces
+  --           config = {
+  --             workspaces = {
+  --               notes = "~/notes",
+  --             },
+  --           },
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   
   {
     dir = "~/Projects/bufferpane.nvim"
