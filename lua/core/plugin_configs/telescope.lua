@@ -5,15 +5,19 @@ local actions = require("telescope.actions")
 require('telescope').setup({
   defaults = {
     border = {},
-    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    borderchars = { "━", "┃", "━", "┃", "┏", "┓", "┛", "┗" },
     color_devicons = true,
-    prompt_prefix = " ",
-    selection_caret = " ",
+    prompt_prefix = "  ",
+    selection_caret = "󰋇 ",
     mappings = {
       i = {
         ["<esc>"] = actions.close,
       }
     }
+  },
+  pickers = {
+    find_files = { theme = "dropdown" },
   },
   extensions = {
     command_palette = {
@@ -74,11 +78,13 @@ M.project_files = function()
     require('telescope.builtin').git_files({
       results_title = "Git Files",
       prompt_title = "",
+      theme = "dropdown",
     })
   else
     require('telescope.builtin').find_files({
       results_title = vim.fn.getcwd(),
       prompt_title = "",
+      theme = "dropdown",
     })
   end
 end

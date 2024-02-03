@@ -14,6 +14,8 @@ set.softtabstop = 2
 set.expandtab = true
 set.clipboard = 'unnamedplus'
 
+vim.opt.laststatus = 3
+
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 

@@ -77,8 +77,8 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   -- echostr = (" echohl Normmal | echon '" .. num_err .. " errors' |" .. echostr)
 
   if num_err > 0 then
-    vim.cmd(echostr)
-    -- print(echostr)
+    -- vim.cmd(echostr)
+    print(mes)
   end
 end
 

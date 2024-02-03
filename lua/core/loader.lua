@@ -11,7 +11,6 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-github.nvim" },
       { "cljoly/telescope-repo.nvim" },
       { "LinArcX/telescope-command-palette.nvim" }
@@ -81,7 +80,10 @@ local plugins = {
   "folke/todo-comments.nvim",
 
   -- "Exafunction/codeium.vim",
-  --
+  
+  "startup-nvim/startup.nvim",
+
+  "rasulomaroff/reactive.nvim",
 
   -- neorg
   -- {

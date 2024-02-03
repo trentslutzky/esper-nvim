@@ -186,19 +186,20 @@ local Space = { provider = " " }
 local Fill = { provider = "%=" }
 
 local Statusline = {
-  condition = function()
-    local blacklistedFiletypes = {
-      "NvimTree"
-    }
-
-    for _,v in ipairs(blacklistedFiletypes) do
-      if v == vim.bo.filetype then
-        return false
-      end
-    end
-
-    return true
-  end,
+  -- condition = function()
+  --   local blacklistedFiletypes = {
+  --     "NvimTree",
+  --     "startup"
+  --   }
+  --
+  --   for _,v in ipairs(blacklistedFiletypes) do
+  --     if v == vim.bo.filetype then
+  --       return false
+  --     end
+  --   end
+  --
+  --   return true
+  -- end,
   hl=theme.Statusline,
   {
     ViMode,
@@ -214,7 +215,7 @@ local BufferLineTab = {
   {
     provider = function(self)
       local fullFileName = vim.api.nvim_buf_get_name(self.bufnr)
-      local filename = vim.fn.fnamemodify(fullFileName, ":.")
+      local filename = vim.fn.fnamemodify(fullFileName, ":t")
       if filename == "" then return " [No Name] " end
       return "  " .. filename ..  "  "
     end,
@@ -225,6 +226,13 @@ local BufferLineTab = {
         return { bg = colors.bg_2, fg = colors.accent_blue }
       end
     end,
+    on_click = {
+      callback = function(self)
+        print(self.bufnr)
+        vim.api.nvim_set_current_buf(self.bufnr)
+      end,
+      name = "heirline_gitblame",
+    },
   },
 }
 
@@ -274,6 +282,7 @@ local WinBar = {
       "TelescopePreview",
       "bufferpane",
       "nil",
+      "startup",
     }
 
     for _,v in ipairs(blacklistedFiletypes) do

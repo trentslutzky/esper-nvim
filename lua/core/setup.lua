@@ -1,6 +1,9 @@
 local vim = vim
 local g = vim.g
 
+local colors = require("colors")
+local lighten = require('util').lighten
+
 require('core.plugin_configs')
 local term = require('util').term
 
@@ -53,7 +56,16 @@ require("yanky").setup({
 })
 
 require('numbers').setup({
-  excluded_filetypes = {"help","dashboard","octo", "NvimTree", "bufferpane", "SidebarNvim"},
+  excluded_filetypes = {
+      "help",
+      "dashboard",
+      "octo",
+      "NvimTree",
+      "bufferpane",
+      "SidebarNvim",
+      "startup",
+      "TelescopePrompt",
+  },
 })
 
 require("ibl").setup {
@@ -164,3 +176,45 @@ require('gitblame').setup {
   enabled = true,
   display_virtual_text = false,
 }
+
+require("startup").setup({ theme = "startify" })
+
+local my_reactive_preset = {
+  name = 'custom',
+  modes = {
+    no = {
+      winhl = {},
+      hl = {},
+      operators = {
+        d = {
+          winhl = {
+            CursorLineNr = { fg = colors.accent_red, bg = colors.bg_1 }
+          },
+        },
+        y = {
+          winhl = {
+            CursorLineNr = { fg = colors.accent_yellow, bg = colors.bg_1 }
+          },
+        },
+        [">"] = { winhl = { CursorLineNr = { fg = colors.accent_blue, bg = colors.bg_1 }}},
+        ["<"] = { winhl = { CursorLineNr = { fg = colors.accent_blue, bg = colors.bg_1 }}},
+      }
+    },
+    i = {
+      winhl = {
+        CursorLineNr = { fg = colors.accent_green, bg = colors.bg_1 },
+      },
+    },
+    [{ 'v', 'V', '\x16' }] = {
+      winhl = {
+        CursorLineNr = { fg = colors.accent_yellow, bg = colors.bg_3 }
+      },
+    }
+  }
+}
+
+require("reactive").add_preset(my_reactive_preset)
+
+require("reactive").setup({
+  custom = true,
+})

@@ -16,19 +16,18 @@ local foreground = "#c5c8c6"
 local foreground1 = "#b1b3b2"
 local foreground2 = "#7e807f"
 
-local accent_red = "#E36049"
-local accent_green = "#aed466"
-local accent_yellow = "#ffbc4a"
-local accent_blue = "#7FACCA"
-local accent_magenta = "#7F81CA"
-local accent_cyan = "#727272"
-
 local red = "#cacccb"
 local green = "#b1b3b2"
 local yellow = "#979998"
-local magenta = "#D7D9D8"
-local blue = "#7e807f"
+local blue = "#D7D9D8"
+local magenta = "#7e807f"
 local cyan = "#727372"
+
+local accent_green = "#aed466"
+local accent_yellow = "#ffbc4a"
+local accent_red = "#E36049"
+local accent_blue = "#7FACCA"
+local accent_magenta = "#7F81CA"
 
 local buffer_line_background = bg_1
 
@@ -71,8 +70,6 @@ local highlghts = {
   Todo = { bg = yellow, fg = bg_0 },
   SignColumn = { bg = bg_0 },
 
-  MatchParen = { bg = accent_yellow, fg = bg_0 },
-
   Error = { fg = accent_red, bg = lighten(accent_red, -50) },
   ErrorMsg = { fg = accent_red, bg = lighten(accent_red, -50) },
   NvimInternalError = { fg = accent_red, bg = lighten(accent_red, -50) },
@@ -114,12 +111,12 @@ local highlghts = {
   },
 
   TelescopeBorder = {
-    fg = accent_green,
-    bg = bg_0,
+    fg = bg_1,
+    bg = bg_1,
   },
 
   TelescopePreviewNormal = {
-    bg = bg_1,
+    bg = bg_2,
   },
 
   TelescopePreviewLine = {
@@ -129,43 +126,39 @@ local highlghts = {
   },
 
   TelescopePreviewTitle = {
-    fg = accent_green,
-    bg = bg_0,
+    fg = green,
+    bg = bg_2,
     gui = "bold",
   },
 
   TelescopeResultsTitle = {
-    fg = accent_green,
-    bg = bg_0,
+    fg = yellow,
+    bg = bg_1,
     gui = "bold",
   },
 
-  TelescopeResultsNormal = {
-    bg = bg_0,
-  },
-
   TelescopePreviewBorder = {
-    fg = accent_green,
-    bg = bg_0,
+    fg = bg_2,
+    bg = bg_2,
   },
 
   TelescopePromptNormal = {
-    bg = bg_0,
+    bg = bg_3,
   },
 
   TelescopePromptBorder = {
-    bg = bg_0,
-    fg = accent_green,
+    bg = bg_3,
+    fg = bg_3,
   },
 
   TelescopePromptTitle = {
-    bg = bg_0,
-    fg = accent_green,
+    bg = bg_3,
+    fg = yellow,
   },
 
   TelescopePromptCounter = {
-    bg = bg_0,
-    fg = accent_green,
+    bg = bg_3,
+    fg = yellow,
   },
 
   -- lsp diagnostics
@@ -251,16 +244,8 @@ local highlghts = {
     fg = foreground,
   },
 
-  NvimTreeRootFolder = {
-    fg = accent_green,
-  },
-
   NvimTreeFolderName = {
-    fg = accent_blue,
-  },
-
-  NvimTreeFolderIcon = {
-    fg = accent_blue,
+    fg = accent_yellow,
   },
 
   NvimTreeCursorLine = {
