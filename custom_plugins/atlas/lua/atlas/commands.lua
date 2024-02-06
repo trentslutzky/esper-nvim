@@ -11,7 +11,29 @@ local commands = {
     command = function()
       require("atlas.view").open()
     end
-  }
+  },
+  {
+    name = "AtlasClose",
+    opts = {
+      desc = "atlas: close",
+      nargs = "?",
+      complete = "dir",
+    },
+    command = function()
+      require("atlas.view").close()
+    end
+  },
+  {
+    name = "AtlasToggle",
+    opts = {
+      desc = "atlas: toggle",
+      nargs = "?",
+      complete = "dir",
+    },
+    command = function()
+      require("atlas.view").toggle()
+    end
+  },
 }
 
 function M.setup()

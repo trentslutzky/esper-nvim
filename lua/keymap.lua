@@ -46,6 +46,9 @@ set("n","<C-W>","<cmd>bd<cr>")
 -- open close nvimtree
 set("n","<C-L>",":NvimTreeToggle<cr>")
 
+-- open close atlas
+set("n","<C-A>",":AtlasToggle<cr>")
+
 -- open github issues
 -- set("n","<leader>gi","<cmd>Octo issue list assignee=trentslutzky<cr>")
 -- set("n","<leader>gpr","<cmd>Octo pr list createdBy=trentslutzky<cr>")

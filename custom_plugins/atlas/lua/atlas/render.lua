@@ -1,18 +1,20 @@
+local highlights = require("atlas.highlights")
 local view = require("atlas.view")
-
-local namespace_id = vim.api.nvim_create_namespace("AtlasHighlights")
 
 local M = {}
 
-local function set_mod(is_mod)
-  vim.api.nvim_buf_set_option(view.View.bufnr, "modifiable", is_mod)
+function M.setup(opts)
+  highlights.setup()
+  M.draw_section()
 end
 
-function M.draw_section(sec_dat)
-  set_mod(true)
-  vim.api.nvim_buf_set_lines(view.View.bufnr, 0, -1, false, {"Buffers"})
-  vim.api.nvim_buf_add_highlight(view.View.bufnr, namespace_id, "Error", 0, 0, 6)
-  set_mod(false)
+function M.draw_section()
+  local bufnr = view.View.bufnr
+  vim.api.nvim_buf_set_option(bufnr, "modifiable", true)
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {"   Buffers"})
+  vim.api.nvim_buf_set_option(bufnr, "modifiable", false)
+  vim.api.nvim_buf_add_highlight(bufnr, highlights.namespace_id, "AtlasSectionTitle", 0, 0, -1)
 end
+
 
 return M

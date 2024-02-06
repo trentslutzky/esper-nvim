@@ -107,8 +107,13 @@ local plugins = {
   --   end,
   -- },
   
+
   {
-    dir = "~/Projects/bufferpane.nvim"
+    dir = "~/projects/bufferpane.nvim"
+  },
+
+  {
+    dir = "~/.config/nvim/custom_plugins/atlas"
   }
 
 }

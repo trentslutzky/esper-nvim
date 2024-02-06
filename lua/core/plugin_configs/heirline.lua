@@ -11,6 +11,29 @@ local theme = {
   CursorPos = { fg = colors.bg_1, bg = colors.accent_blue, bold = true },
 }
 
+local winbarComponentsFiletypeBlacklist = {
+  "NvimTree",
+  "telescope",
+  "TelescopeResults",
+  "TelescopeResult",
+  "TelescopePreview",
+  "bufferpane",
+  "Atlas",
+  "nil",
+  "help",
+  "startup",
+}
+
+local winbarComponentBlacklist = function(showInNormalWindow)
+  for _,v in ipairs(winbarComponentsFiletypeBlacklist) do
+    if v == vim.bo.filetype then
+      return showInNormalWindow
+    end
+  end
+
+  return not showInNormalWindow
+end
+
 local ViMode = {
     init = function(self)
         self.mode = vim.fn.mode(1)
@@ -85,7 +108,7 @@ local ViMode = {
 }
 
 local GitBranch = {
-    condition = conditions.is_git_repo,
+    condition = conditions.is_git_repo,-- and winbarComponentBlacklist(),
 
     init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
@@ -138,7 +161,21 @@ local GitBranch = {
     { provider = " " }
 }
 
+local FileTypeName = {
+  condition = function()
+    return winbarComponentBlacklist(true)
+  end,
+  provider = function()
+    local filetype = vim.bo.filetype
+    return "%=" .. filetype
+  end,
+  hl = { bg = colors.bg_1 },
+}
+
 local FileName = {
+  condition = function() 
+    return winbarComponentBlacklist(false)
+  end,
   provider = function()
     local fullFileName = vim.api.nvim_buf_get_name(0)
     local filename = vim.fn.fnamemodify(fullFileName, ":.")
@@ -183,23 +220,18 @@ local CursorPos = {
 }
 
 local Space = { provider = " " }
-local Fill = { provider = "%=" }
+local Fill = { 
+  provider = "%=",
+  hl = function()
+    if winbarComponentBlacklist(false) then
+      return { bg = colors.bg_1 }
+    else
+      return { bg = colors.bg_1 }
+    end
+  end,
+}
 
 local Statusline = {
-  -- condition = function()
-  --   local blacklistedFiletypes = {
-  --     "NvimTree",
-  --     "startup"
-  --   }
-  --
-  --   for _,v in ipairs(blacklistedFiletypes) do
-  --     if v == vim.bo.filetype then
-  --       return false
-  --     end
-  --   end
-  --
-  --   return true
-  -- end,
   hl=theme.Statusline,
   {
     ViMode,
@@ -213,6 +245,9 @@ local Statusline = {
 
 local BufferLineTab = {
   {
+    condition = function()
+      return winbarComponentBlacklist(false)
+    end,
     provider = function(self)
       local fullFileName = vim.api.nvim_buf_get_name(self.bufnr)
       local filename = vim.fn.fnamemodify(fullFileName, ":t")
@@ -250,12 +285,25 @@ local BufferLine = utils.make_buflist(
   { provider = "", hl = { fg = "gray" } }
 )
 
+local BufferLineWrapper = {
+  condition = function()
+    return winbarComponentBlacklist(false)
+  end,
+  {BufferLine},
+}
+
 local RightFancy = {
+  condition = function()
+    return winbarComponentBlacklist(false)
+  end,
   provider = "",
-  hl = { fg = colors.bg_3, bg = colors.bg_1 }
+  hl = { fg = colors.bg_1, bg = colors.bg_1 }
 }
 
 local BufferFileTypeIcon = {
+  condition = function()
+    return winbarComponentBlacklist(false)
+  end,
   provider = function()
     local fullFileName = vim.api.nvim_buf_get_name(0)
     local filename = vim.fn.fnamemodify(fullFileName, ":.")
@@ -268,36 +316,17 @@ local BufferFileTypeIcon = {
     local fullFileName = vim.api.nvim_buf_get_name(0)
     local filename = vim.fn.fnamemodify(fullFileName, ":.")
     local _, color = require'nvim-web-devicons'.get_icon_color(filename)
-    return { bg = colors.bg_3, fg = color, bold = true }
+    return { bg = colors.bg_1, fg = color, bold = true }
   end
 }
 
 local WinBar = {
-  condition = function()
-    local blacklistedFiletypes = {
-      "NvimTree",
-      "telescope",
-      "TelescopeResults",
-      "TelescopeResult",
-      "TelescopePreview",
-      "bufferpane",
-      "nil",
-      "startup",
-    }
-
-    for _,v in ipairs(blacklistedFiletypes) do
-      if v == vim.bo.filetype then
-        return false
-      end
-    end
-
-    return true
-  end,
   hl=theme.WinBar,
   {
     BufferFileTypeIcon,
     RightFancy,
-    BufferLine,
+    BufferLineWrapper,
+    FileTypeName,
     Fill,
     GitBranch,
   }

@@ -84,6 +84,12 @@ local highlghts = {
   StatusLine = { bg = bg_0, gui="none" },
   StatusLineNC = { bg = bg_0, gui="none" },
 
+  -- Atlas
+  
+  AtlasCursorLine = {
+    bg = bg_2,
+  },
+
   Visual = {
     bg = bg_3,
     fg = foreground,
@@ -268,8 +274,8 @@ local highlghts = {
   },
 
   NvimTreeWinSeparator = {
-    bg = bg_0,
-    fg = bg_0,
+    bg = bg_1,
+    fg = bg_1,
   },
 
   -- octo
@@ -367,7 +373,7 @@ local highlghts = {
   },
 
   VertSplit = {
-    fg = bg_2,
+    fg = bg_1,
     bg = bg_1,
   },
 

@@ -2,12 +2,14 @@ local config = require("atlas.config")
 
 local M = {}
 
+local move_tbl = { left = "H", right = "L", bottom = "J", top = "K" }
+
 M.is_prompt_exiting = false
 
 M.View = {
     bufnr = nil,
     tabpages = {},
-    width = 25,
+    width = 10,
     side = "left",
     winopts = {
         relativenumber = false,
@@ -17,12 +19,11 @@ M.View = {
         winfixheight = true,
         foldenable = false,
         spell = false,
-        signcolumn = "yes",
+        signcolumn = "no",
         foldmethod = "manual",
         foldcolumn = "0",
         cursorcolumn = false,
         colorcolumn = "0",
-        statusline = " ",
     },
     bufopts = {
         { name = "swapfile", val = false },
@@ -33,19 +34,17 @@ M.View = {
     },
 }
 
----Find a rogue SidebarNvim buffer that might have been spawned by i.e. a session.
----@return integer|nil
+
 local function find_rogue_buffer()
     for _, v in ipairs(vim.api.nvim_list_bufs()) do
-        if string.match(vim.fn.bufname(v), "^SidebarNvim_.*") then
+        if string.match(vim.fn.bufname(v), "^Atlas_.*") then
             return v
         end
     end
     return nil
 end
 
----Check if the tree buffer is valid and loaded.
----@return boolean
+
 local function is_buf_valid()
     if M.View.bufnr == nil then
         return false
@@ -53,8 +52,7 @@ local function is_buf_valid()
     return vim.api.nvim_buf_is_valid(M.View.bufnr) and vim.api.nvim_buf_is_loaded(M.View.bufnr)
 end
 
----Find pre-existing SidebarNvim buffer, delete its windows then wipe it.
----@private
+
 function M._wipe_rogue_buffer()
     local bn = find_rogue_buffer()
     if bn then
@@ -72,11 +70,35 @@ function M._wipe_rogue_buffer()
     end
 end
 
+
 local function generate_buffer_name()
     return "Atlas_" .. math.random(1000000)
 end
 
--- set user options and create tree buffer (should never be wiped)
+
+function M.get_winnr()
+    local tabpage = vim.api.nvim_get_current_tabpage()
+    local tabinfo = M.View.tabpages[tabpage]
+    if tabinfo ~= nil then
+        return tabinfo.winnr
+    end
+end
+
+
+function M.is_win_open(opts)
+    if opts and opts.any_tabpage then
+        for _, v in pairs(M.View.tabpages) do
+            if vim.api.nvim_win_is_valid(v.winnr) then
+                return true
+            end
+        end
+        return false
+    else
+        return M.get_winnr() ~= nil and vim.api.nvim_win_is_valid(M.get_winnr())
+    end
+end
+
+
 function M.setup()
     M.View.side = config.side or M.View.side
     M.View.width = config.initial_width or M.View.width
@@ -94,25 +116,18 @@ function M.setup()
     for _, opt in ipairs(M.View.bufopts) do
         vim.bo[M.View.bufnr][opt.name] = opt.val
     end
-
---     vim.api.nvim_exec(
---         [[
--- augroup sidebar_nvim_prevent_buffer_override
---     autocmd!
---     autocmd BufWinEnter * lua require('sidebar-nvim.view')._prevent_buffer_override()
--- augroup END
--- ]],
---         false
---     )
 end
 
-local move_tbl = { left = "H", right = "L", bottom = "J", top = "K" }
 
 local function set_local(opt, value)
     vim.api.nvim_win_set_option(0, opt, value)
 end
 
+
 function M.open(options)
+    if M.is_win_open() then
+      return
+    end
     options = options or { focus = false }
     if not is_buf_valid() then
         M.setup()
@@ -133,6 +148,24 @@ function M.open(options)
     vim.cmd(":wincmd =")
     if not options.focus then
         vim.cmd("wincmd p")
+    end
+    require("atlas.render").setup(options)
+end
+
+
+function M.close()
+    if not M.is_win_open() then
+        return
+    end
+    vim.api.nvim_win_hide(M.get_winnr())
+end
+
+
+function M.toggle()
+    if not M.is_win_open() then
+      M.open()
+    else
+      M.close()
     end
 end
 
