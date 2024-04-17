@@ -46,6 +46,9 @@ local plugins = {
   "saadparwaiz1/cmp_luasnip",
   "rafamadriz/friendly-snippets",
   "honza/vim-snippets",
+  "onsails/lspkind.nvim",
+
+  "psf/black",
 
   -- sidebar
   -- "sidebar-nvim/sidebar.nvim",
@@ -53,8 +56,10 @@ local plugins = {
   -- autoclose
   -- "m4xshen/autoclose.nvim",
 
-  -- git blame
+  -- git
   "f-person/git-blame.nvim",
+  -- "tpope/vim-fugitive",
+  "NeogitOrg/neogit",
 
   -- heirline (Status bar and buffer bar)
   "rebelot/heirline.nvim",
@@ -106,7 +111,17 @@ local plugins = {
   --     }
   --   end,
   -- },
-  
+  {
+    "toppair/peek.nvim",
+    event = { "VeryLazy" },
+    build = "deno task --quiet build:fast",
+    config = function()
+        require("peek").setup()
+        -- refer to `configuration to change defaults`
+        vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+        vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+    end,
+  },
 
   {
     dir = "~/projects/bufferpane.nvim"
