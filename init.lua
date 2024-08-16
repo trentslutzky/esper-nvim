@@ -49,7 +49,6 @@ set.foldlevel = 99
 set.foldlevelstart = 99
 set.foldenable = true
 
-
 cmd('nnoremap <buffer><silent> <c-q> <cmd>call Black()<cr>')
 cmd('inoremap <buffer><silent> <c-q> <cmd>call Black()<cr>')
 

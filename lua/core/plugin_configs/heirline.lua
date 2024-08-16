@@ -22,6 +22,10 @@ local winbarComponentsFiletypeBlacklist = {
   "nil",
   "help",
   "startup",
+  "NeogitStatus",
+  "NeogitPopup",
+  "neo-tree",
+  "neo-tree-popup",
 }
 
 local winbarComponentBlacklist = function(showInNormalWindow)
@@ -266,7 +270,7 @@ local BufferLineTab = {
         print(self.bufnr)
         vim.api.nvim_set_current_buf(self.bufnr)
       end,
-      name = "heirline_gitblame",
+      name = "heirline_set_bufnr",
     },
   },
 }

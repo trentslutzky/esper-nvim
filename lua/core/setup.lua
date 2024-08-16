@@ -43,8 +43,23 @@ require("nvim-tree").setup {
 vim.api.nvim_create_autocmd({"QuitPre"}, {
     callback = function() vim.cmd("NvimTreeClose") end,
 })
+
+vim.api.nvim_create_autocmd({"QuitPre"}, {
+    callback = function() vim.cmd("Neotree close") end,
+})
+
 vim.api.nvim_create_autocmd({"QuitPre"}, {
     callback = function() vim.cmd("AtlasClose") end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+	group = vim.api.nvim_create_augroup("edit_text", { clear = true }),
+	pattern = { "gitcommit", "markdown", "txt", "text" },
+	desc = "Enable spell checking and text wrapping for certain filetypes",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
 })
 
 require("yanky").setup({
@@ -66,6 +81,10 @@ require('numbers').setup({
       "startup",
       "Atlas",
       "TelescopePrompt",
+      "NeogitStatus",
+      "NeogitPopup",
+      "neo-tree",
+      "neo-tree-popup",
   },
 })
 
@@ -189,5 +208,9 @@ require("reactive").setup({
 })
 
 require("atlas").setup({
-  open = true,
+  open = false,
 })
+
+-- require('neogit').setup({
+--   kind = "vsplit",
+-- })

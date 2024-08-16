@@ -60,6 +60,9 @@ require('telescope').setup({
         { "format", "gggqG" },
       },
     },
+    file_browser ={
+      theme = "ivy",
+    },
   },
 })
 
@@ -78,13 +81,11 @@ M.project_files = function()
     require('telescope.builtin').git_files({
       results_title = "Git Files",
       prompt_title = "",
-      theme = "dropdown",
     })
   else
     require('telescope.builtin').find_files({
       results_title = vim.fn.getcwd(),
       prompt_title = "",
-      theme = "dropdown",
     })
   end
 end

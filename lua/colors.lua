@@ -32,6 +32,8 @@ local cyan = "#727372"
 
 local buffer_line_background = bg_1
 
+local telescope_border = accent_yellow
+
 local highlghts = {
 
   Normal = {fg = foreground, bg = bg_0 },
@@ -45,8 +47,10 @@ local highlghts = {
   Repeat = { fg = accent_yellow },
   Constant = { fg = foreground },
 
+  Special = { fg = accent_blue },
+  Title = { fg = accent_blue },
+
   Character = { fg = yellow },
-  Special = { fg = blue },
   Float = { fg = yellow },
   Boolean = { fg = yellow },
   PreProc = { fg = yellow },
@@ -67,7 +71,6 @@ local highlghts = {
   htmlError = { fg = red },
   javaScriptError = { fg = red },
   Underlined = { fg = cyan },
-  Title = { fg = yellow },
   Todo = { bg = yellow, fg = bg_0 },
   SignColumn = { bg = bg_0 },
 
@@ -81,14 +84,8 @@ local highlghts = {
   DiffDelete = { bg = lighten(accent_red, -40), fg = foreground },
   DiffChange = { bg = lighten(accent_yellow, -40), fg = foreground },
 
-  StatusLine = { bg = bg_0, gui="none" },
-  StatusLineNC = { bg = bg_0, gui="none" },
-
-  -- Atlas
-  
-  AtlasCursorLine = {
-    bg = bg_2,
-  },
+  StatusLine = { bg = bg_1, gui="none" },
+  StatusLineNC = { bg = bg_1, gui="none" },
 
   Visual = {
     bg = bg_3,
@@ -120,7 +117,7 @@ local highlghts = {
   },
 
   TelescopeBorder = {
-    fg = accent_green,
+    fg = telescope_border,
     bg = bg_0,
   },
 
@@ -130,18 +127,18 @@ local highlghts = {
 
   TelescopePreviewLine = {
     bg = bg_3,
-    fg = blue,
+    fg = accent_blue,
     gui = "bold",
   },
 
   TelescopePreviewTitle = {
-    fg = accent_green,
+    fg = telescope_border,
     bg = bg_0,
     gui = "bold",
   },
 
   TelescopeResultsTitle = {
-    fg = accent_green,
+    fg = telescope_border,
     bg = bg_0,
     gui = "bold",
   },
@@ -151,7 +148,7 @@ local highlghts = {
   },
 
   TelescopePreviewBorder = {
-    fg = accent_green,
+    fg = telescope_border,
     bg = bg_0,
   },
 
@@ -161,12 +158,12 @@ local highlghts = {
 
   TelescopePromptBorder = {
     bg = bg_0,
-    fg = accent_green,
+    fg = telescope_border,
   },
 
   TelescopePromptTitle = {
     bg = bg_0,
-    fg = accent_green,
+    fg = telescope_border,
   },
 
   TelescopePromptCounter = {
@@ -253,20 +250,20 @@ local highlghts = {
   -- nvim tree
 
   NvimTreeNormal = {
-    bg = bg_1,
+    bg = bg_0,
     fg = foreground,
   },
 
   NvimTreeRootFolder = {
-    fg = accent_green,
+    fg = accent_blue,
   },
 
   NvimTreeFolderName = {
-    fg = accent_blue,
+    fg = foreground,
   },
 
   NvimTreeFolderIcon = {
-    fg = accent_blue,
+    fg = accent_yellow,
   },
 
   NvimTreeCursorLine = {
@@ -274,8 +271,8 @@ local highlghts = {
   },
 
   NvimTreeWinSeparator = {
-    bg = bg_1,
-    fg = bg_1,
+    bg = bg_0,
+    fg = accent_yellow,
   },
 
   -- octo
@@ -373,7 +370,7 @@ local highlghts = {
   },
 
   VertSplit = {
-    fg = bg_1,
+    fg = bg_2,
     bg = bg_1,
   },
 
@@ -386,7 +383,13 @@ local highlghts = {
   },
 
   FoldColumn = {
+    fg = accent_blue,
     bg = bg_0,
+  },
+
+  Folded = {
+    fg = accent_blue,
+    bg = lighten(accent_blue, -50),
   },
 
   GitSignsAdd = { fg = accent_green, bg = bg_0 },

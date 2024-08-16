@@ -3,6 +3,8 @@
 local plugins = {
   -- plenary is always needed nowadays
   "nvim-lua/plenary.nvim",
+  "nvim-tree/nvim-web-devicons",
+  "MunifTanjim/nui.nvim",
 
   -- my colorscheme (I need to make this rely on hue instead)
   -- "trentslutzky/onehalf",
@@ -15,6 +17,10 @@ local plugins = {
       { "cljoly/telescope-repo.nvim" },
       { "LinArcX/telescope-command-palette.nvim" }
     }
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
   -- trying mason for lsp stuff
@@ -31,7 +37,17 @@ local plugins = {
 
   -- nvim tree
   "nvim-tree/nvim-tree.lua",
-  "nvim-tree/nvim-web-devicons",
+
+  -- neo tree
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
 
   -- treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
@@ -59,7 +75,7 @@ local plugins = {
   -- git
   "f-person/git-blame.nvim",
   -- "tpope/vim-fugitive",
-  "NeogitOrg/neogit",
+  -- "NeogitOrg/neogit",
 
   -- heirline (Status bar and buffer bar)
   "rebelot/heirline.nvim",
