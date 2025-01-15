@@ -7,7 +7,7 @@ local lighten = require('util').lighten
 cmd('syntax on')
 set.termguicolors = true
 
-local bg_0 = "#131313"
+local bg_0 = "#000000"
 local bg_1 = "#1f1f1f"
 local bg_2 = "#333333"
 local bg_3 = "#555555"

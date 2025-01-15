@@ -1,43 +1,43 @@
+
+require("lspconfig")
 require("mason").setup()
+require("mason-lspconfig").setup()
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls" },
-  capabilities = capabilities,
-})
+require("mason-lspconfig").setup_handlers {
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {}
+  end,
+}
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-require("lspconfig").lua_ls.setup {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = {'vim'},
-      }
-    }
-  }
-}
+-- require("lspconfig").lua_ls.setup {
+--   settings = {
+--     Lua = {
+--       diagnostics = {
+--         globals = {'vim'},
+--       }
+--     }
+--   }
+-- }
 -- require("lspconfig").pyright.setup {}
-require("lspconfig").pylsp.setup {
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          maxLineLength = 999
-        },
-        mccabe = {
-          enabled = false
-        }
-      }
-    }
-  }
-}
+-- require("lspconfig").pylsp.setup {
+--   settings = {
+--     pylsp = {
+--       plugins = {
+--         pycodestyle = {
+--           maxLineLength = 999
+--         },
+--         mccabe = {
+--           enabled = false
+--         }
+--       }
+--     }
+--   }
+-- }
 -- require("lspconfig").eslint.setup {}
-
-require("lspconfig").tsserver.setup{}
-
-require("lspconfig").vuels.setup {}
-require("lspconfig").cssls.setup{}
+-- require("lspconfig").tsserver.setup{}
+-- require("lspconfig").vuels.setup {}
+-- require("lspconfig").cssls.setup{}
 -- require'lspconfig'.sourcekit.setup{} -- for swift
 --
 
@@ -73,11 +73,8 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     mes = mes:gsub('"',""):gsub("'",""):gsub("`",""):gsub(" |","")
     echostr = echostr .. ' echon "' .. mes .. '"'
   end
-  
-  -- echostr = (" echohl Normmal | echon '" .. num_err .. " errors' |" .. echostr)
 
   if num_err > 0 then
-    -- vim.cmd(echostr)
     print(mes)
   end
 end

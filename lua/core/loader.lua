@@ -18,10 +18,6 @@ local plugins = {
       { "LinArcX/telescope-command-palette.nvim" }
     }
   },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-  },
 
   -- trying mason for lsp stuff
   {
@@ -31,12 +27,8 @@ local plugins = {
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
 
-  "mxw/vim-jsx",
-  "leafgarland/typescript-vim",
-  "peitalin/vim-jsx-typescript",
-
   -- nvim tree
-  "nvim-tree/nvim-tree.lua",
+  -- "nvim-tree/nvim-tree.lua",
 
   -- neo tree
   {
@@ -58,13 +50,13 @@ local plugins = {
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-buffer",
+  "onsails/lspkind.nvim",
+
+  -- snippets
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   "rafamadriz/friendly-snippets",
   "honza/vim-snippets",
-  "onsails/lspkind.nvim",
-
-  "psf/black",
 
   -- sidebar
   -- "sidebar-nvim/sidebar.nvim",
@@ -100,53 +92,7 @@ local plugins = {
 
   "folke/todo-comments.nvim",
 
-  -- "Exafunction/codeium.vim",
-  
-  "startup-nvim/startup.nvim",
-
   "rasulomaroff/reactive.nvim",
-
-  -- neorg
-  -- {
-  --   "nvim-neorg/neorg",
-  --   build = ":Neorg sync-parsers",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function()
-  --     require("neorg").setup {
-  --       load = {
-  --         ["core.defaults"] = {}, -- Loads default behaviour
-  --         ["core.concealer"] = {}, -- Adds pretty icons to your documents
-  --         ["core.dirman"] = { -- Manages Neorg workspaces
-  --           config = {
-  --             workspaces = {
-  --               notes = "~/notes",
-  --             },
-  --           },
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  {
-    "toppair/peek.nvim",
-    event = { "VeryLazy" },
-    build = "deno task --quiet build:fast",
-    config = function()
-        require("peek").setup()
-        -- refer to `configuration to change defaults`
-        vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-        vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-    end,
-  },
-
-  {
-    dir = "~/projects/bufferpane.nvim"
-  },
-
-  {
-    dir = "~/.config/nvim/custom_plugins/atlas"
-  }
-
 }
 
 local opts = {}

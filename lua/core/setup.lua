@@ -1,10 +1,11 @@
+require('core.plugin_configs')
+
 local vim = vim
 local g = vim.g
 
 local colors = require("colors")
 local lighten = require('util').lighten
 
-require('core.plugin_configs')
 local term = require('util').term
 
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
@@ -21,35 +22,38 @@ vim.diagnostic.config({
   severity_sort = false,
 })
 
-require("nvim-tree").setup {
-  view = {
-    side = "left",
-    width = 35,
-  },
-  filters = {
-    custom = {
-      "^.git$",
-      "^.github$",
-      "^.git-crypt$",
-      "^.mypy_cache$",
-      "^__pycache__$"
-    }
-  },
-  renderer = {
-    highlight_opened_files = "name",
-  }
-}
-
-vim.api.nvim_create_autocmd({"QuitPre"}, {
-    callback = function() vim.cmd("NvimTreeClose") end,
-})
-
 vim.api.nvim_create_autocmd({"QuitPre"}, {
     callback = function() vim.cmd("Neotree close") end,
 })
 
-vim.api.nvim_create_autocmd({"QuitPre"}, {
-    callback = function() vim.cmd("AtlasClose") end,
+require("neo-tree").setup({})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local args = vim.fn.argv() -- Get the arguments passed to Neovim
+    local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
+
+    -- Check if no files were passed and the current buffer is unnamed
+    if #args == 0 and bufname == "" then
+      vim.cmd("Neotree position=current") -- Run Neotree command
+    end
+  end,
+})
+
+-- Autocommand to delete the [No Name] buffer when entering another file
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local current_buf = vim.api.nvim_get_current_buf()
+    -- Check if the previous buffer was [No Name]
+    if vim.bo[current_buf].buflisted and vim.api.nvim_buf_get_name(current_buf) ~= "" then
+      -- Iterate over all buffers to find [No Name]
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.bo[buf].buflisted and vim.api.nvim_buf_get_name(buf) == "" then
+          vim.api.nvim_buf_delete(buf, { force = true }) -- Delete the [No Name] buffer
+        end
+      end
+    end
+  end,
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
@@ -165,7 +169,7 @@ require('gitblame').setup {
   display_virtual_text = false,
 }
 
-require("startup").setup({ theme = "startify" })
+-- require("startup").setup({ theme = "startify" })
 
 local my_reactive_preset = {
   name = 'custom',
@@ -207,9 +211,9 @@ require("reactive").setup({
   custom = true,
 })
 
-require("atlas").setup({
-  open = false,
-})
+-- require("atlas").setup({
+--   open = false,
+-- })
 
 -- require('neogit').setup({
 --   kind = "vsplit",

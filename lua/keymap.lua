@@ -12,7 +12,6 @@ set("n","<leader>d","<cmd>Telescope lsp_definitions<cr>")
 set("n","<leader>r","<cmd>Telescope lsp_references<cr>")
 set("n","<leader>of","<cmd>Telescope oldfiles<cr>")
 set("n","<leader>f","<cmd>lua require('core.plugin_configs.telescope').project_files()<cr>")
-set("n","<leader>fb","<cmd>Telescope file_browser theme=ivy previewer=false<cr>")
 set("n","<leader>F","<cmd>Telescope find_files<cr>")
 set("n","<leader>gc","<cmd>Telescope git_commits<cr>")
 set("n","<leader>gs","<cmd>Telescope git_status theme=dropdown<cr>")
@@ -20,7 +19,8 @@ set("n","<leader>gS","<cmd>Telescope grep_string<cr>")
 set("v","<leader>gS","<cmd>Telescope grep_string<cr>")
 set("n","<leader>lg","<cmd>lua require('telescope.builtin').live_grep({ file_ignore_patterns = {'tests'} })<cr>")
 set("n","<leader>lG","<cmd>Telescope live_grep<cr>")
-set("n","<leader>b","<cmd>Telescope buffers theme=ivy previewer=false <cr>")
+--set("n","<leader>b","<cmd>Telescope buffers theme=ivy previewer=false <cr>")
+set("n","<leader>b","<cmd>Neotree buffers current <cr>")
 set("n","<leader>k","<cmd>Telescope keymaps<cr>")
 set("n","<leader>t","<cmd>Telescope resume<cr>")
 set("n","<leader>h","<cmd>Telescope highlights<cr>")
@@ -44,9 +44,11 @@ set("n","<C-T>","<cmd>bn<cr>")
 
 -- close buffers with control-w
 set("n","<C-W>","<cmd>bd<cr>")
+vim.keymap.del("n", "<C-W>d")
+vim.keymap.del("n", "<C-W><C-D>")
 
 -- open close nvimtree
-set("n","<C-L>",":Neotree toggle<cr>")
+set("n","<C-L>",":Neotree current toggle<cr>")
 
 -- open close atlas
 set("n","<C-A>",":AtlasToggle<cr>")
