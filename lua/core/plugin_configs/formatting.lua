@@ -25,19 +25,27 @@ local function get_formatters_for_filetype(filetype)
   return formatters
 end
 
--- Autocmd to run the formatter before quitting the file, only if it was modified
-vim.api.nvim_create_autocmd("ExitPre", {
-  pattern = "*", -- Run for all files
-  callback = function()
-    local filetype = vim.bo.filetype -- Get the current filetype
-    local formatters = get_formatters_for_filetype(filetype)
+local function run_formatters()
+  local filetype = vim.bo.filetype -- Get the current filetype
+  local formatters = get_formatters_for_filetype(filetype)
 
-    -- Only run formatters if the file has been modified
-    if not vim.bo.modified and #formatters > 0 then
-      for _, formatter in ipairs(formatters) do
-        print("Running", formatter)
-        vim.cmd(string.format("silent! !%s %%", formatter))
-      end
+  -- Only run formatters if the file has been modified
+  if not vim.bo.modified and #formatters > 0 then
+    for _, formatter in ipairs(formatters) do
+      print("Running", formatter)
+      vim.cmd(string.format("silent! !%s %%", formatter))
     end
-  end,
-})
+  end
+end
+
+-- Autocmd to run the formatter before quitting the file, only if it was modified
+-- vim.api.nvim_create_autocmd("ExitPre", {
+--   pattern = "*", -- Run for all files
+--   callback = function()
+--     run_formatters()
+--   end,
+-- })
+
+return {
+  run_formatters = run_formatters,
+}

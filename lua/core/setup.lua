@@ -26,8 +26,6 @@ vim.api.nvim_create_autocmd({"QuitPre"}, {
     callback = function() vim.cmd("Neotree close") end,
 })
 
-require("neo-tree").setup({})
-
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local args = vim.fn.argv() -- Get the arguments passed to Neovim
@@ -119,7 +117,9 @@ require("scrollbar").setup({
     "noice",
     "TelescopePrompt",
     "Atlas",
-    "NvimTree"
+    "NvimTree",
+    "neo-tree",
+    "neo-tree-popup",
   }
 })
 

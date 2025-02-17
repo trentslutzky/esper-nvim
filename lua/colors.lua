@@ -52,6 +52,7 @@ local highlghts = {
 
   Character = { fg = yellow },
   Float = { fg = yellow },
+  FloatBorder = { bg = bg_0 },
   Boolean = { fg = yellow },
   PreProc = { fg = yellow },
   PreCondit = { fg = yellow },
@@ -67,7 +68,7 @@ local highlghts = {
   Identifier = { fg = red },
   Keyword = { fg = red },
   NonText = { fg = bg_3 },
-  Directory = { fg = cyan},
+  Directory = { fg = accent_blue },
   htmlError = { fg = red },
   javaScriptError = { fg = red },
   Underlined = { fg = cyan },
