@@ -26,6 +26,12 @@ local winbarComponentsFiletypeBlacklist = {
   "NeogitPopup",
   "neo-tree",
   "neo-tree-popup",
+  "floaterm",
+  "Floaterm",
+  "term",
+  "terminal",
+  "Terminal",
+  "nofile",
 }
 
 local winbarComponentBlacklist = function(showInNormalWindow)

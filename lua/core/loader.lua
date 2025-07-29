@@ -6,14 +6,18 @@ local plugins = {
   "nvim-tree/nvim-web-devicons",
   "MunifTanjim/nui.nvim",
 
-  -- my colorscheme (I need to make this rely on hue instead)
-  -- "trentslutzky/onehalf",
+  "rcarriga/nvim-notify",
+  
+  "dgagn/diagflow.nvim",
+
+  "ggandor/leap.nvim",
 
   -- telescope is essential
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       { "nvim-telescope/telescope-github.nvim" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
       { "cljoly/telescope-repo.nvim" },
       { "LinArcX/telescope-command-palette.nvim" }
     }
@@ -40,6 +44,9 @@ local plugins = {
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     }
   },
+
+  -- github copilot
+  "github/copilot.vim", 
 
   -- treesitter
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
@@ -76,7 +83,7 @@ local plugins = {
   "nkakouros-original/numbers.nvim",
   "ethanholz/nvim-lastplace",
   "kevinhwang91/nvim-hlslens",
-  "petertriho/nvim-scrollbar",
+  -- "petertriho/nvim-scrollbar",
   "terrortylor/nvim-comment",
   {"lukas-reineke/indent-blankline.nvim", main="ibl"},
 
@@ -87,8 +94,6 @@ local plugins = {
   "famiu/bufdelete.nvim",
 
   "voldikss/vim-floaterm",
-
-  "klen/nvim-test",
 
   "folke/todo-comments.nvim",
 

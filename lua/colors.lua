@@ -78,7 +78,7 @@ local highlghts = {
   MatchParen = { bg = accent_yellow, fg = bg_0 },
 
   Error = { fg = accent_red, bg = lighten(accent_red, -50) },
-  ErrorMsg = { fg = accent_red, bg = lighten(accent_red, -50) },
+  ErrorMsg = { fg = accent_red, bg = lighten(accent_red, -50), bg=bg0 },
   NvimInternalError = { fg = accent_red, bg = lighten(accent_red, -50) },
 
   DiffAdd = { bg = lighten(accent_green, -40), fg = foreground },
@@ -89,8 +89,8 @@ local highlghts = {
   StatusLineNC = { bg = bg_1, gui="none" },
 
   Visual = {
-    bg = bg_3,
-    fg = foreground,
+    bg = accent_yellow,
+    fg = bg_0,
   },
 
   Pmenu = {
@@ -376,11 +376,11 @@ local highlghts = {
   },
 
   Floaterm = {
-    bg = bg_1,
+    bg = bg_0,
   },
 
   FloatermBorder = {
-    bg = bg_1,
+    bg = bg_0,
   },
 
   FoldColumn = {

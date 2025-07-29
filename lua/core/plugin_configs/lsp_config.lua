@@ -1,13 +1,13 @@
 
 require("lspconfig")
 require("mason").setup()
-require("mason-lspconfig").setup()
-
-require("mason-lspconfig").setup_handlers {
-  function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {}
-  end,
-}
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "ts_ls",
+    "pyright",
+    "cssls",
+  }
+})
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- require("lspconfig").lua_ls.setup {
@@ -34,7 +34,7 @@ require("mason-lspconfig").setup_handlers {
 --     }
 --   }
 -- }
--- require("lspconfig").eslint.setup {}
+require("lspconfig").eslint.setup {}
 -- require("lspconfig").tsserver.setup{}
 -- require("lspconfig").vuels.setup {}
 -- require("lspconfig").cssls.setup{}
@@ -70,13 +70,14 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     elseif sev == 4 then
       echostr = echostr .. 'echohl DiagnosticHint | echon "  " |'
     end
+
     mes = mes:gsub('"',""):gsub("'",""):gsub("`",""):gsub(" |","")
     echostr = echostr .. ' echon "' .. mes .. '"'
   end
 
   if num_err > 0 then
-    print(mes)
+    vim.diagnostic.open_float()
   end
 end
 
-vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
+-- vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]

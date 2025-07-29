@@ -35,7 +35,7 @@ set.number = true
 set.relativenumber = true
 
 set.completeopt = 'menuone,noselect'
-set.updatetime = 100
+set.updatetime = 1000
 wo.signcolumn = 'yes'
 
 -- prevent code wrapping because I hate it

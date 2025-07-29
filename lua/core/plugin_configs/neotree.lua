@@ -213,7 +213,7 @@ require("neo-tree").setup({
     follow_current_file = {
       enabled = true, -- This will find and focus the file in the active buffer every time
       --               -- the current file is changed while the tree is open.
-      leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
     },
     group_empty_dirs = false, -- when true, empty folders will be grouped together
     hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
@@ -228,7 +228,9 @@ require("neo-tree").setup({
         ["<bs>"] = "navigate_up",
         ["."] = "set_root",
         ["H"] = "toggle_hidden",
-        ["/"] = "fuzzy_finder",
+        ["/"] = "",
+        ["z"] = "",
+        -- ["/"] = "filter_as_you_type",
         ["D"] = "fuzzy_finder_directory",
         ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
         -- ["D"] = "fuzzy_sorter_directory",

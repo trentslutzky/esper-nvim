@@ -60,13 +60,15 @@ require('telescope').setup({
         { "format", "gggqG" },
       },
     },
-    file_browser ={
-      theme = "ivy",
+    file_browser = {
+      hijack_netrw = true,
     },
   },
 })
 
 require("telescope").load_extension "command_palette"
+
+require("telescope").load_extension "file_browser"
 
 local M = {}
 

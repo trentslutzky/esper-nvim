@@ -21,7 +21,7 @@ set("n","<leader>lg","<cmd>lua require('telescope.builtin').live_grep({ file_ign
 set("n","<leader>lG","<cmd>Telescope live_grep<cr>")
 --set("n","<leader>b","<cmd>Telescope buffers theme=ivy previewer=false <cr>")
 set("n","<leader>b","<cmd>Neotree float buffers <cr>")
-set("n","<leader>s","<cmd>Neotree float document_symbols <cr>")
+--set("n","<leader>s","<cmd>Neotree float document_symbols <cr>")
 set("n","<leader>k","<cmd>Telescope keymaps<cr>")
 set("n","<leader>t","<cmd>Telescope resume<cr>")
 set("n","<leader>h","<cmd>Telescope highlights<cr>")
@@ -49,7 +49,8 @@ vim.keymap.del("n", "<C-W>d")
 vim.keymap.del("n", "<C-W><C-D>")
 
 -- open close nvimtree
-set("n","<C-L>",":Neotree current toggle<cr>")
+set("n","<C-L>",":Neotree left toggle<cr>")
+set("n","<C-F>",":Telescope file_browser<cr>")
 
 -- open close atlas
 set("n","<C-A>",":AtlasToggle<cr>")

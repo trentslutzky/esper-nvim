@@ -8,7 +8,9 @@ local lighten = require('util').lighten
 
 local term = require('util').term
 
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local ts_utils = require 'nvim-treesitter.ts_utils'
+
+local signs = { Error = "", Warn = "󰗖", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl })
@@ -22,20 +24,13 @@ vim.diagnostic.config({
   severity_sort = false,
 })
 
-vim.api.nvim_create_autocmd({"QuitPre"}, {
-    callback = function() vim.cmd("Neotree close") end,
-})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local args = vim.fn.argv() -- Get the arguments passed to Neovim
-    local bufname = vim.api.nvim_buf_get_name(0) -- Get the name of the current buffer
-
-    -- Check if no files were passed and the current buffer is unnamed
-    if #args == 0 and bufname == "" then
-      vim.cmd("Neotree position=current") -- Run Neotree command
-    end
-  end,
+require('diagflow').setup({
+  scope = "line",
+  text_align = "right",
+  placement = "top",
+  show_sign = true,
+  show_borders = true,
+  max_height = 20,
 })
 
 -- Autocommand to delete the [No Name] buffer when entering another file
@@ -64,6 +59,45 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
 	end,
 })
 
+-- Function to get the function name under the cursor
+local function get_function_name()
+  local current_node = ts_utils.get_node_at_cursor()
+  local expr = current_node
+  while expr do
+    if expr:type() == 'function_definition' or expr:type() == 'class_definition' then
+        break
+    end
+    expr = expr:parent()
+  end
+
+  if not expr then return "" end
+
+  return (vim.treesitter.get_node_text(expr:child(1), 0))
+end
+
+-- function to open Neotree if launched with no arguments
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argv(0) == '' then
+      vim.cmd(':Neotree current')
+    end
+  end,
+})
+
+
+vim.api.nvim_create_user_command("RunTestAtCursor", 
+  function(opts)
+    local function_name = get_function_name()
+    if function_name == "" then
+      print("No function name found!")
+      return
+    end
+    line = 'pytest --reuse-db --disable-warnings --no-header --show-capture=all -q -k ' .. function_name
+    vim.cmd(':FloatermNew --disposable --cwd=~/narmi/banking --position=bottom --width=1.0 --height=0.5 ' .. line)
+  end,
+  { nargs = 0 }
+)
+
 require("yanky").setup({
   highlight = {
     on_put = true,
@@ -87,7 +121,16 @@ require('numbers').setup({
       "NeogitPopup",
       "neo-tree",
       "neo-tree-popup",
+      "floaterm",
   },
+})
+
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {"lua", "vim", "python"},
+  auto_install = true,
+  highlight = {
+    enable = true,
+  }
 })
 
 require("ibl").setup {
@@ -101,28 +144,29 @@ require('hlslens').setup({
   nearest_float_when = 'never'
 })
 
-require("scrollbar.handlers.search").setup()
-require("scrollbar").setup({
-  marks = {
-    Search = { color = term(2) },
-     Error = { color = term(1) },
-      Warn = { color = term(3) },
-      Info = { color = term(4) },
-      Hint = { color = term(4) },
-      Misc = { color = term(15) },
-  },
-  excluded_filetypes = {
-    "cmp_docs",
-    "cmp_menu",
-    "noice",
-    "TelescopePrompt",
-    "Atlas",
-    "NvimTree",
-    "neo-tree",
-    "neo-tree-popup",
-  }
-})
-
+-- require("scrollbar.handlers.search").setup()
+-- require("scrollbar").setup({
+--   marks = {
+--     Search = { color = term(2) },
+--      Error = { color = term(1) },
+--       Warn = { color = term(3) },
+--       Info = { color = term(4) },
+--       Hint = { color = term(4) },
+--       Misc = { color = term(15) },
+--   },
+--   excluded_filetypes = {
+--     "cmp_docs",
+--     "cmp_menu",
+--     "noice",
+--     "TelescopePrompt",
+--     "Atlas",
+--     "NvimTree",
+--     "neo-tree",
+--     "neo-tree-popup",
+--     "floaterm",
+--   }
+-- })
+--
 require'nvim-lastplace'.setup{}
 
 require('todo-comments').setup()
@@ -147,8 +191,6 @@ require('gitsigns').setup({
 g.floaterm_title = ""
 g.floaterm_borderchars = "        "
 g.floaterm_autoclose = 0
-
-require('nvim-test').setup()
 
 -- require('neorg').setup {
 --     load = {
@@ -218,3 +260,6 @@ require("reactive").setup({
 -- require('neogit').setup({
 --   kind = "vsplit",
 -- })
+
+
+require("leap").set_default_mappings()
